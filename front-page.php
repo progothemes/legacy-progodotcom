@@ -1,9 +1,5 @@
 <?php
 /**
- * Template Name: Featured Products
- *
- * Featured Products page template
- *
  * @package ProGo
  * @subpackage ProGoDotCom
  * @since ProGoDotCom 1.0
