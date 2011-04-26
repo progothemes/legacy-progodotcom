@@ -13,11 +13,11 @@
  * @since ProGoDotCom 1.0
  */
 get_header(); ?>
-<div id="container" class="container_12">
 <div id="pagetop">
 <h1 class="page-title"><?php echo get_the_title( get_option('progo_blog_id') ); ?></h1>
 <?php do_action('progo_pagetop'); ?>
 </div>
+<div id="container" class="container_12">
 <div id="main" role="main" class="grid_8">
 <?php
 /* Run the loop to output the posts.
@@ -28,5 +28,5 @@ get_template_part( 'loop', 'index' );
 ?>
 </div><!-- #main -->
 <?php get_sidebar('blog'); ?>
-		</div><!-- #container -->
+</div><!-- #container -->
 <?php get_footer(); ?>

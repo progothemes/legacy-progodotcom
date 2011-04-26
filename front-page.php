@@ -9,7 +9,6 @@ get_header();
 global $wp_query, $post;
 $options = get_option( 'progo_options' );
 ?>
-<div id="container" class="container_12">
 <div id="pagetop" class="slides">
 <?php
 $slides = (array) get_option( 'progo_slides' );
@@ -69,6 +68,7 @@ progo_timing = <?php $hsecs = absint($options['homeseconds']); echo $hsecs > 0 ?
 // i forget why this is here...
 do_action('progo_pagetop'); ?>
 </div>
+<div id="container" class="container_12">
 <div id="main" role="main" class="grid_8">
 <?php
 switch ( $options['frontpage'] ) {

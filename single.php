@@ -8,11 +8,11 @@
  */
 
 get_header(); ?>
-<div id="container" class="container_12">
 <div id="pagetop">
 <h1 class="page-title"><?php echo get_the_title( get_option('progo_blog_id') ); ?></h1>
 <?php do_action('progo_pagetop'); ?>
 </div>
+<div id="container" class="container_12">
 <div id="main" role="main" class="grid_8">
 <?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
 <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
