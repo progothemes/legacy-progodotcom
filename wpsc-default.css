@@ -582,6 +582,7 @@ span.rating_saved{
 }
 
 /*-----SHOPPING CART-----*/
+#sliding_cart { display:none }
 .shopping-cart-wrapper {
 	line-height:1.2em;
 	position:relative;
