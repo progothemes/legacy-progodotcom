@@ -18,7 +18,7 @@ body { background: #555 url(../images/bg.png) repeat-x 0 0;}
 #fx { float: left; width: 100%; min-width: 1080px; background: url(../images/fx.jpg) no-repeat 50% 103px; }
 #wrap { width: 1000px; }
 #page { float: left; padding: 0 20px;}
-#container { float: left; margin: 0 -20px; background: url(../images/shadow.png) repeat-y 0 0; padding: 0 20px; position: relative;}
+#container { float: left; margin: 0 -20px; background: url(../images/shadow.png) repeat-y 0 0; padding: 0 20px 20px; position: relative;}
 body.blog #container { background-image: url(../images/shadb.png); }
 #main { float:left; padding: 20px 0 0; }
 #main div.page { padding: 6px 17px; }
@@ -62,20 +62,29 @@ span.shipping_region_name, span.shipping_country_name { background: #fff; border
 .zip input.text {width:58px;}
 input.text.need { border-color: #f00; }
 a { color: #333; text-decoration: none }
-a:hover, a.more-link { text-decoration: underline }
+body.blog .entry a { color: #ec7d1b; }
+body.blog .entry a.more-link { color: #333; display: block }
+a:hover, a.more-link, body.blog .entry-utility a { text-decoration: underline }
 .screen-reader-text { position: absolute; left: -9000px; }
 
 /* hdr */
 #hdr { float: left; height: 103px; position: relative; }
 #logo { float: left; margin: 9px 12px 0 2px; width: 150px; height: 80px; text-indent: -999em; background: url(../images/logo_progo.png) no-repeat 0 0 }
 #slogan { float: left; margin: 45px 0 0; font-size: 16px; color: #515151; }
-ul#nav { float:left; height: 35px; margin: 0; padding: 0 1px 0 0; list-style: none; position: absolute; bottom: 0; right: 0; background: url(../images/navli.png) no-repeat 100% 100% }
-ul#nav li { float: left; padding-left: 1px; background: url(../images/navli.png) no-repeat 0 100%; }
-ul#nav li a { float: left; height: 27px; color: #4b4b4b; font-size: 13px; padding: 0 24px }
-ul#nav ul { display: none; }
-/*ul#nav li.current-menu-item a, body.wpsc ul#nav li.wpsc a, body.blog ul#nav li.blog a { background: url(../images/navon.png) no-repeat 0 0; font-weight: bold; }
-ul#nav li a:hover { font-weight: bold; text-decoration:none; }*/
-
+ul#nav { float:left; margin: 0; padding: 0 1px 0 0; list-style: none; position: absolute; bottom: 0; right: -14px; background: url(../images/navli.png) no-repeat 100% 100%; z-index: 5 }
+ul#nav li { float: left; padding: 5px 0 0 1px; background: url(../images/navli.png) no-repeat 0 100%; }
+ul#nav li a { float: left; height: 27px; color: #4b4b4b; font-size: 13px; padding: 24px 23px 6px; font-weight: bold }
+ul#nav ul { display: none; list-style: none; margin: 0; padding: 0; position: absolute; top: 0; right: 0; width: 133px; }
+ul#nav li li { background: none; float: none; padding: 0; }
+ul#nav li li a { float:none; height: auto; padding: 0; color: #000; font-weight: normal; }
+ul#nav li.current-menu-item a, body.wpsc ul#nav li.wpsc a, body.blog ul#nav li.blog a, ul#nav li a:hover { background: url(../images/navon.png) repeat-x 0 100%; font-weight: bold; text-decoration: none; color: #000 }
+.hblock { position: absolute; top: 0; right: -33px; z-index: 7; display: block; width: 194px }
+.hblock.social { top: 11px; right: 177px; z-index:5; width: auto }
+.hblock.widget_wpsc_shopping_cart h3.title { display: block; width: 140px; height: 32px; margin: 0; background:url(../images/carttab.png) 0 0; position: absolute; top: 0; right: 0; font-size: 13px; font-weight: bold; padding: 14px 0 0 54px; z-index:7; cursor: pointer }
+#cartcollapse { position: absolute; z-index: 6; top: 0; right: -8px; display: block; width: 257px; padding: 45px 34px 0 35px; background:url(../images/cartrep.png) repeat-y 0 0; }
+#cartcollapse .end { float:left; width: 326px; height: 20px; margin: 0 -34px -20px -35px; background: url(../images/cartdrop.png) no-repeat 0 0; }
+#closecart { color: #c24c05; font-weight: bold; position: absolute; top: 15px; left: 36px; font-size: 13px }
+#cartcounter { position: absolute; z-index: 10; font-size: 13px; left: 144px; top:15px; }
 /* content */
 #pagetop { float: left; width: 100%; height: 155px; position: relative; color: #fff; margin: 0 -20px; padding: 0 20px; background:url(../images/shadt.png) no-repeat 0 100%; }
 #pagetop .page-title { float: left; width: 906px; margin: 3px 25px; font-size: 98px; line-height:120%; letter-spacing:-0.03em }
@@ -162,20 +171,22 @@ body.page .edit-link { clear: both; display: block;}
 .block.fblike .inside { padding: 14px 0 5px 5px; }
 
 /* footer */
+/*
 #fbar { float: left; width: 920px; padding: 12px 20px; color: #fff; background: #000 url(../images/BlackGrey/fbar.png) repeat-x 0 0; font-size: 14px; line-height:20px }
 #fbar a { color: #fff; }
 #fbar ul { list-style: none; float: left; margin: 0; padding: 0; }
 #fbar li { float: left; }
-#fbar .fblock { float: left; width: 50%; }
-#fbar .fblock .title { float: left; }
-#fbar .fblock.widget_nav_menu li { margin-right: 40px; }
-.social h3 { display: none; }
+*/
+#theend { float: left; width: 1000px; height: 46px; margin: 0 -20px; background: url(../images/end.png) no-repeat 0 0; }
+#fwrap { float: left; width: 100%; min-width: 1080px; background: #fff; padding: 25px 0; }
+.fblock { float: left; width: 50%; }
+.fblock .title { float: left; }
+.fblock.widget_nav_menu li { margin-right: 40px; }
+.social .title { display: none; }
 .social ul, .social ul li { float: left; margin: 0; padding: 0; list-style: none; }
-.social li a { float: left; width: 23px; height: 22px; margin: 0 0 0 4px; text-indent:-999em; background:url(../images/social.jpg) no-repeat 0 0 }
+.social li a { float: left; width: 23px; height: 22px; margin: 0 0 0 4px; text-indent:-999em; text-align: left; background:url(../images/social.jpg) no-repeat 0 0 }
 .social li.tw a { background-position: -23px 0; }
 .social li.rss a { background-position: -46px 0; }
-
-#ftr { float: left; padding: 12px 6px 32px; background:url(../images/shade.png) no-repeat 0 0; }
 #ftr, #ftr a { color: #333; }
 #ftr ul { float: left; margin: 0; padding: 0; list-style: none; }
 #ftr ul li { float: left; margin: 0; padding: 0; list-style: none; }

@@ -94,20 +94,7 @@ if ( ! function_exists( 'progo_posted_on' ) ):
  * @since ProGoDotCom 1.0
  */
 function progo_posted_on() {
-	printf( __( '<span class="meta-sep">Posted by</span> %1$s <span class="%2$s">on</span> %3$s', 'progo' ),
-		sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s">%3$s</a></span>',
-			get_author_posts_url( get_the_author_meta( 'ID' ) ),
-			sprintf( esc_attr__( 'View all posts by %s', 'progo' ), get_the_author() ),
-			get_the_author()
-		),
-		'meta-prep meta-prep-author',
-		sprintf( '<a href="%1$s" title="%2$s" rel="bookmark"><span class="entry-date">%3$s</span></a>',
-			get_permalink(),
-			esc_attr( get_the_time() ),
-			get_the_date()
-		)
-	);
-	edit_post_link( __( 'Edit', 'progo' ), '<span class="meta-sep"> : </span> <span class="edit-link">', '</span>' );
+	echo 'Posted by '. get_the_author() .' on '. get_the_date() .'<br />';
 }
 endif;
 if ( ! function_exists( 'progo_posted_in' ) ):
@@ -119,7 +106,7 @@ function progo_posted_in() {
 	/* Retrieves tag list of current post, separated by commas.
 	$tag_list = get_the_tag_list( '', ', ' );
 	*/
-	echo 'Categories : '. get_the_category_list( ', ' );
+	echo 'Topics : '. get_the_category_list( ', ' );
 }
 endif;
 if ( ! function_exists( 'progo_productimage' ) ):

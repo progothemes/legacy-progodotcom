@@ -50,4 +50,7 @@ jQuery(function($) {
 	Cufon.replace('h1.page-title', { fontFamily: 'TitilliumText', fontWeight: '800', textShadow: '3px 3px rgba(160, 72, 0, 1.0)' });
 	Cufon.now();
 	
+	$('#cartcollapse').hide().parent().parent().prev().click(function() {
+		$('#cartcollapse').stop().slideDown();
+	});
 });

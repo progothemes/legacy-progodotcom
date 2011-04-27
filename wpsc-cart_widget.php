@@ -1,9 +1,10 @@
+<div id="cartcounter"><?php $itemcount = wpsc_cart_item_count(); echo '('. absint($itemcount) .')'; ?></div><div id="cartcollapse"><a href="#close" id="closecart" onclick="jQuery(this).parent().slideUp(); return false;">X close</a>
 <?php if(isset($cart_messages) && count($cart_messages) > 0) { ?>
 	<?php foreach((array)$cart_messages as $cart_message) { ?>
 	  <span class="cart_message"><?php echo $cart_message; ?></span>
 	<?php } ?>
 <?php } ?>
- <div class="shoppingcart"><div class="cart-widget-count"><?php $itemcount = wpsc_cart_item_count(); ?><strong>(<?php echo absint($itemcount); ?>)</strong> Item<?php echo ($itemcount == 1 ? '' : 's'); ?> in your cart</div>
+ <div class="shoppingcart">
 <?php if(wpsc_cart_item_count() > 0): ?>
 	<table>
 		<tbody>
@@ -60,3 +61,5 @@ if($options['credentials'] == '') {
 	echo $options['credentials']; // ok?
 }
 ?></div>
+<div class="end"></div>
+</div>

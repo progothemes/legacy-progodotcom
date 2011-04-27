@@ -36,6 +36,7 @@
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+<meta property="og:image" content="<?php bloginfo( 'template_url' ); ?>/images/logo.png"/>
 <?php wp_head(); ?>
 </head>
 

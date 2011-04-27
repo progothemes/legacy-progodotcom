@@ -47,12 +47,11 @@
 <?php while ( have_posts() ) : the_post(); ?>
 		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'progo' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
-			<div class="entry-meta"><?php progo_posted_on(); ?></div>
 			<div class="entry">
 				<?php the_content( 'Read More' ); ?>
 				<?php wp_link_pages( array( 'before' => '<div class="page-link">' . __( 'Pages:', 'progo' ), 'after' => '</div>' ) ); ?>
 			</div><!-- .entry -->
-			<div class="entry-utility"><div class="in"><?php progo_posted_in(); ?></div><div class="sha"><?php if(function_exists('sharethis_button')) sharethis_button(); ?></div></div>
+			<div class="entry-utility"><div class="in"><?php progo_posted_on(); progo_posted_in(); ?></div><div class="sha"><?php if(function_exists('sharethis_button')) sharethis_button(); ?></div></div>
 		</div><!-- #post-## -->
 
 		<?php comments_template( '', true ); ?>
@@ -62,7 +61,7 @@
 <?php /* Display navigation to next/previous pages when applicable */ ?>
 <?php if (  $wp_query->max_num_pages > 1 ) : ?>
 				<div id="nav-below" class="navigation">
-					<div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'progo' ) ); ?></div>
-					<div class="nav-next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'progo' ) ); ?></div>
+					<div class="nav-previous"><?php next_posts_link( 'Next Page' ); ?></div>
+					<div class="nav-next"><?php previous_posts_link( 'Previous Page' ); ?></div>
 				</div><!-- #nav-below -->
 <?php endif; ?>
