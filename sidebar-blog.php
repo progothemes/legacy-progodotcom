@@ -7,7 +7,7 @@
  * @since ProGoDotCom 1.0
  */
 ?>
-<div class="grid_4">
+<div class="grid_3">
 <div id="secondary">
 <?php
 /* When we call the dynamic_sidebar() function, it'll spit out

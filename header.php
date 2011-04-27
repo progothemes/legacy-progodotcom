@@ -43,7 +43,7 @@
 <div id="wrap" class="container_12">
 	<div id="page" class="container_12">
         <div id="hdr" class="container_12">
-        	<div class="grid_6">
+        	<div class="grid_6 alpha">
             <?php progo_sitelogo();
             $options = get_option( 'progo_options' );
             if ( (int) $options['showdesc'] == 1 ) { ?>

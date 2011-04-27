@@ -926,11 +926,9 @@ if ( ! function_exists( 'progo_add_scripts' ) ):
  */
 function progo_add_scripts() {
 	if ( !is_admin() ) {
-		wp_register_script( 'progo', get_bloginfo('template_url') .'/js/progo-frontend.js', array('jquery'), '1.0' );
-		wp_enqueue_script( 'progo' );
-		do_action('progo_frontend_scripts');
-	} else {
-		//
+		wp_enqueue_script( 'cufon-yui', get_bloginfo('template_url') .'/js/cufon-yui.js', array('jquery'), '1.0.9i' );
+		wp_enqueue_script( 'cufon-Titillium', get_bloginfo('template_url') .'/js/TitilliumText.font.js', array('jquery', 'cufon-yui'), '1.0.9i' );
+		wp_enqueue_script( 'progo', get_bloginfo('template_url') .'/js/progo-frontend.js', array('jquery', 'cufon-yui'), '1.0' );
 	}
 }
 endif;
