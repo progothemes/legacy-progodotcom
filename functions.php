@@ -5,15 +5,6 @@
  * @since ProGoDotCom 1.0
  *
  * Defines all the functions, actions, filters, widgets, etc., for ProGoDotCom theme.
- *
- * Some actions for Child Themes to hook in to are:
- * progo_frontend_scripts, progo_frontend_styles, progo_direct_after_arrow (called on directresponse.php page)
- *
- * Some overwriteable functions ( wrapped by "if(!function_exists(..." ) are:
- * progo_sitelogo, progo_posted_on, progo_posted_in, progo_productimage, progo_prepare_transaction_results,
- * progo_admin_menu_cleanup, progo_custom_login_logo, progo_custom_login_url, progo_metabox_cleanup ...
- *
- * Most Action / Filters hooks are set in the progo_setup function, below. overwriting that could cause quite a few things to go wrong.
  */
 
 $content_width = 594;
@@ -58,12 +49,17 @@ function progo_setup() {
 	add_action('wp_print_styles', 'progo_add_styles');
 	add_action( 'admin_notices', 'progo_admin_notices' );
 	add_action( 'wp_before_admin_bar_render', 'progo_admin_bar_render' );
+	add_action( 'progo_pre_gateways', 'progodotcom_gatewaycleanup' );
+	
+	remove_action('wp_head', 'st_widget_head');
+	add_action('wp_head', 'progo_st_widget_head');
 	
 	// add custom filters
 	add_filter( 'body_class', 'progo_bodyclasses' );
 	add_filter( 'wp_nav_menu_objects', 'progo_menuclasses' );
 	add_filter( 'wpsc_pre_transaction_results', 'progo_prepare_transaction_results' );
 	add_filter( 'wp_mail_content_type', 'progo_mail_content_type' );
+	add_filter( 'wp_mail', 'progodotcom_mail' );
 }
 endif;
 
@@ -1565,3 +1561,133 @@ function progo_mail_content_type( $content_type ) {
 	return 'text/html';
 }
 endif;
+
+if(!function_exists('progo_st_widget_head')) :
+function progo_st_widget_head() {
+	$widget = get_option('st_widget');
+	if ($widget != '') {
+		$widget = preg_replace(
+			"/\<script\s([^\>]*)src\=\"http\:\/\/sharethis/"
+			, "<script $1src=\"https://ws.sharethis"
+			, $widget
+		);
+		$widget = preg_replace("/\&/", "&amp;", $widget);
+		$widget = str_replace('http://w.sharethis.com/button/buttons.js', 'https://ws.sharethis.com/button/buttons.js', $widget);
+	}
+	print($widget);
+}
+endif;
+
+function progodotcom_gatewaycleanup() {
+	// custoom cleanup of Paypal Pro gateway fields...
+	$years = $months = '';
+	$curryear = date( 'Y' );
+	//generate year options
+	for ( $i = 0; $i < 10; $i++ ) {
+		$years .= "<option value='" . $curryear . "'>" . $curryear . "</option>\r\n";
+		$curryear++;
+	}
+	$oot = "<tr><td><label>" . __( 'Card Type *', 'wpsc' ) . "</label><select class='wpsc_ccBox' name='cctype'>
+			<option value='Visa'>" . __( 'Visa', 'wpsc' ) . "</option>
+			<option value='Mastercard'>" . __( 'MasterCard', 'wpsc' ) . "</option>
+			<option value='Discover'>" . __( 'Discover', 'wpsc' ) . "</option>
+			<option value='Amex'>" . __( 'Amex', 'wpsc' ) . "</option>
+		</select><label>" . __( 'Card Number *', 'wpsc' ) . "</label><input type='text' value='' name='card_number' class='text txt req' />
+		<label>" . __( 'Expiration *', 'wpsc' ) . "</label>
+		<select class='wpsc_ccBox' name='expiry[month]'>
+			" . $months . "
+			<option value='01'>01</option>
+			<option value='02'>02</option>
+			<option value='03'>03</option>
+			<option value='04'>04</option>
+			<option value='05'>05</option>						
+			<option value='06'>06</option>						
+			<option value='07'>07</option>					
+			<option value='08'>08</option>						
+			<option value='09'>09</option>						
+			<option value='10'>10</option>						
+			<option value='11'>11</option>																			
+			<option value='12'>12</option>																			
+			</select><select class='wpsc_ccBox' name='expiry[year]'>
+			" . $years . "
+			</select>
+		<label>" . __( 'CVV *', 'wpsc' ) . "</label><input type='text' size='4' value='' maxlength='4' name='card_code' class='txt text req cvv' />
+		</td>
+	</tr>";
+	global $gateway_checkout_form_fields;
+	$gateway_checkout_form_fields[wpsc_merchant_paypal_pro] = $oot;
+}
+
+// this is where keys come from
+function progodotcom_mail( $msg ) {
+	if($msg[subject] == 'Purchase Receipt') {
+		$dlstart = strpos($msg['message'],'?downloadid=') + 12;
+		$dlend = strpos($msg['message'],'Total:', $dlstart);
+		$dlid = trim(substr($msg['message'],$dlstart,$dlend-$dlstart));
+		//$dlend = 
+		
+		global $wpdb;
+		
+		$downloadid = preg_replace( "/[^a-z0-9]+/i", '', strtolower( $dlid ) );
+		$download_data = $wpdb->get_row( "SELECT * FROM `" . WPSC_TABLE_DOWNLOAD_STATUS . "` WHERE `uniqueid` = '" . $downloadid . "' AND `downloads` > '0' AND `active`='1' LIMIT 1", ARRAY_A );
+
+		if ( ($download_data == null) && is_numeric( $downloadid ) ) {
+			$download_data = $wpdb->get_row( "SELECT * FROM `" . WPSC_TABLE_DOWNLOAD_STATUS . "` WHERE `id` = '" . $downloadid . "' AND `downloads` > '0' AND `active`='1' AND `uniqueid` IS NULL LIMIT 1", ARRAY_A );
+		}
+		
+		$file_id = $download_data['fileid'];
+		$file_data = wpsc_get_downloadable_files($download_data['product_id']);		
+		
+		$themefile = $file_data[0]->post_title;
+		$theme = substr($themefile,0,strlen($themefile)-4);
+		
+		$currtime = date('Y-m-d H:i:s');
+		$new_key = md5(crypt($msg['to'] ." : $currtime : $theme"));
+		
+		$db   = mysql_connect('localhost', 'progokeys', 'NFUh02y67U1') or die('Could not connect: ' . mysql_error());
+		mysql_select_db('progokeys') or die('Could not select database');
+		$server_ip = $_SERVER['SERVER_ADDR'];
+		$url = 'newkey';
+		$user_agent = $dlid;
+		
+		$found = 0;
+		$query = "SELECT * FROM progo_keys WHERE user_agent = '$user_agent'";
+		$result = mysql_query($query);		
+		while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+			$found++;
+			$new_key = $row[api_key];
+		}
+		if( $found == 0 ) {
+			//new key!
+			$sql  = "INSERT INTO progo_keys (";
+			$sql .= "ID,";
+			$sql .= "url,";
+			$sql .= "server_ip,";
+			$sql .= "api_key,";
+			$sql .= "theme,";
+			$sql .= "user_agent,";
+			$sql .= "last_checked,";
+			$sql .= "auth_code";
+			$sql .= ") VALUES (";
+			$sql .= "NULL,";
+			$sql .= "'$url',";
+			$sql .= "'$server_ip',";
+			$sql .= "'$new_key',";
+			$sql .= "'$themeslug',";
+			$sql .= "'$user_agent',";
+			$sql .= "'$currtime',";
+			$sql .= "0";
+			$sql .= ")";
+			
+			mysql_query($sql) || wp_die("Invalid query: $sql<br>\n" . mysql_error());
+		}
+		mysql_close($db);
+		
+		$nice_key = implode( '-', str_split( strtoupper( $new_key ), 4) );
+		$msg['message'] = nl2br(substr($msg['message'],0,$dlend). "API KEY: $nice_key\n\n" .substr($msg['message'],$dlend));
+		
+		//wp_die('<pre>'.print_r($msg,true).'</pre>');
+		
+	}
+	return $msg;
+}

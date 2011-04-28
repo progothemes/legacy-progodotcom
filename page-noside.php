@@ -1,11 +1,6 @@
 <?php
 /**
- * The template for displaying all pages.
- *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site will use a
- * different template.
+ * Template Name: One Column
  *
  * @package ProGo
  * @subpackage ProGoDotCom
@@ -20,7 +15,7 @@ get_header();
 <?php do_action('progo_pagetop'); ?>
 </div>
 <div id="container" class="container_12">
-<div id="main" role="main" class="grid_8">
+<div id="main" role="main" class="grid_12">
 <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 <div class="entry">
 <?php the_content(); ?>
@@ -28,6 +23,5 @@ get_header();
 </div><!-- #post-## -->
 </div><!-- #main -->
 <?php endwhile; ?>
-<?php get_sidebar(); ?>
 </div><!-- #container -->
 <?php get_footer(); ?>

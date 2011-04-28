@@ -53,13 +53,6 @@
 wpsc_google_checkout();
 ?>
 <div class="ccards"></div>
-<div class="cred"><?php
-$options = get_option('progo_options');
-if($options['credentials'] == '') {
-	echo '<img src="'. get_bloginfo('template_url') .'/images/easy.png" alt="Easy &amp; Secure" />';
-} else {
-	echo $options['credentials']; // ok?
-}
-?></div>
+<div class="cred"><img src="<?php bloginfo('template_url'); ?>/images/easy.png" alt="Easy &amp; Secure" /></div>
 <div class="end"></div>
 </div>

@@ -3,6 +3,7 @@ global $wpsc_cart, $wpdb, $wpsc_checkout, $wpsc_gateway, $wpsc_coupons;
 $wpsc_checkout = new wpsc_checkout();
 $wpsc_gateway = new wpsc_gateways();
 $alt = 0;
+
 if(isset($_SESSION['coupon_numbers']))
    $wpsc_coupons = new wpsc_coupons($_SESSION['coupon_numbers']);
 
@@ -12,15 +13,16 @@ if(wpsc_cart_item_count() < 1) :
 endif;
 ?>
 <div id="checkout_page_container">
-<h3><?php _e('Please review your order', 'wpsc'); ?></h3>
 <table class="checkout_cart">
    <tr class="header">
-      <th colspan="2" ><?php _e('Product', 'wpsc'); ?></th>
+      <th><?php _e('Product', 'wpsc'); ?></th>
+      <th><?php _e('Title', 'wpsc'); ?></th>
       <th><?php _e('Quantity', 'wpsc'); ?></th>
       <th><?php _e('Price', 'wpsc'); ?></th>
       <th><?php _e('Total', 'wpsc'); ?></th>
         <th>&nbsp;</th>
    </tr>
+   <?php if(function_exists('easyupsell_products')) easyupsell_products(); ?>
    <?php while (wpsc_have_cart_items()) : wpsc_the_cart_item(); ?>
       <?php
        $alt++;
@@ -35,7 +37,7 @@ endif;
 
          <td class="firstcol wpsc_product_image wpsc_product_image_<?php echo wpsc_the_cart_item_key(); ?>">
          <?php if('' != wpsc_cart_item_image()): ?>
-            <img src="<?php echo wpsc_cart_item_image(); ?>" alt="<?php echo wpsc_cart_item_name(); ?>" title="<?php echo wpsc_cart_item_name(); ?>" class="product_image" />
+            <img src="<?php echo wpsc_cart_item_image(70,70); ?>" alt="<?php echo wpsc_cart_item_name(); ?>" title="<?php echo wpsc_cart_item_name(); ?>" class="product_image" />
          <?php else:
          /* I dont think this gets used anymore,, but left in for backwards compatibility */
          ?>
@@ -57,7 +59,7 @@ endif;
                <input type="text" name="quantity" size="2" value="<?php echo wpsc_cart_item_quantity(); ?>" />
                <input type="hidden" name="key" value="<?php echo wpsc_the_cart_item_key(); ?>" />
                <input type="hidden" name="wpsc_update_quantity" value="true" />
-               <input type="submit" value="<?php _e('Update', 'wpsc'); ?>" name="submit" />
+               <input type="submit" value="<?php _e('Update', 'wpsc'); ?>" name="submit" class="nobtn" />
             </form>
          </td>
 
@@ -70,7 +72,7 @@ endif;
                <input type="hidden" name="quantity" value="0" />
                <input type="hidden" name="key" value="<?php echo wpsc_the_cart_item_key(); ?>" />
                <input type="hidden" name="wpsc_update_quantity" value="true" />
-               <input type="submit" value="<?php _e('Remove', 'wpsc'); ?>" name="submit" />
+               <input type="submit" value="<?php _e('X REMOVE', 'wpsc'); ?>" name="submit" class="btn" />
             </form>
          </td>
       </tr>
@@ -120,8 +122,8 @@ endif;
 
    <div id="wpsc_shopping_cart_container">
    <?php if(wpsc_uses_shipping()) : ?>
-      <h2><?php _e('Calculate Shipping Price', 'wpsc'); ?></h2>
-      <table class="productcart">
+      <h4><?php _e('Calculate Shipping Price', 'wpsc'); ?></h4>
+      <table class="productcart wpsc_checkout_table">
          <tr class="wpsc_shipping_info">
             <td colspan="5">
                <?php _e('Please choose a country below to calculate your shipping costs', 'wpsc'); ?>
@@ -148,7 +150,7 @@ endif;
                <form name='change_country' id='change_country' action='' method='post'>
                   <?php echo wpsc_shipping_country_list();?>
                   <input type='hidden' name='wpsc_update_location' value='true' />
-                  <input type='submit' name='wpsc_submit_zipcode' value='Calculate' />
+                  <input type='submit' name='wpsc_submit_zipcode' value='Calculate' class="btn" />
                </form>
             </td>
          </tr>
@@ -189,22 +191,51 @@ endif;
          <?php endif; ?>
       </table>
    <?php endif;  ?>
+   
 
-   <?php
+   <table  class='wpsc_checkout_table table-4'>
+      <?php if(wpsc_uses_shipping()) : ?>
+	      <tr class="total_shipping">
+	         <td>
+	            <?php _e('Total Shipping', 'wpsc'); ?>:
+	         </td>
+	         <td class="wpsc_totals">
+	            <span id="checkout_shipping" class="pricedisplay checkout-shipping"><?php echo wpsc_cart_shipping(); ?></span>
+	         </td>
+	      </tr>
+      <?php endif; ?>
+
+     <?php if(wpsc_uses_coupons() && (wpsc_coupon_amount(false) > 0)): ?>
+      <tr>
+         <td>
+            <?php _e('Discount', 'wpsc'); ?>:
+         </td>
+         <td class="wpsc_totals">
+            <span id="coupons_amount" class="pricedisplay"><?php echo wpsc_coupon_amount(); ?></span>
+          </td>
+         </tr>
+     <?php endif;
       $wpec_taxes_controller = new wpec_taxes_controller();
-      if($wpec_taxes_controller->wpec_taxes_isenabled()):
-   ?>
-      <table class="productcart">
-         <tr class="total_price total_tax">
-            <td colspan="3">
+      if($wpec_taxes_controller->wpec_taxes_isenabled()): ?>
+         <tr class="total_tax">
+            <td>
                <?php echo wpsc_display_tax_label(true); ?>
             </td>
-            <td colspan="2">
+            <td class="wpsc_totals">
                <span id="checkout_tax" class="pricedisplay checkout-tax"><?php echo wpsc_cart_tax(); ?></span>
             </td>
          </tr>
-      </table>
    <?php endif; ?>
+   <tr class="total_price">
+      <td>
+      <?php _e('Total Price', 'wpsc'); ?>:
+      </td>
+      <td class="wpsc_totals">
+         <span id='checkout_total' class="pricedisplay checkout-total"><?php echo wpsc_cart_total(); ?></span>
+      </td>
+   </tr>
+   </table>
+   
    <?php do_action('wpsc_before_form_of_shopping_cart'); ?>
                  
 	<?php if(!empty($_SESSION['wpsc_checkout_user_error_messages'])): ?>
@@ -231,7 +262,8 @@ endif;
 					<div class="wpsc_signup_text"><?php _e('If you have bought from us before please sign in here to purchase', 'wpsc');?></div>
 				</fieldset>
 			</div>
-	<?php endif; ?>	
+	<?php endif; ?>
+    <div class="req"><?php _e('Fields marked with an asterisk* must be filled in.', 'wpsc');?></div>
 	<form class='wpsc_checkout_forms' action='<?php echo get_option('shopping_cart_url'); ?>' method='post' enctype="multipart/form-data">
 				
       <?php
@@ -345,20 +377,6 @@ endif;
                   </td>
                </tr>
             <?php
-            }elseif( $wpsc_checkout->checkout_item->unique_name == 'billingemail'){ ?>
-               <?php $email_markup =
-               "<div class='wpsc_email_address'>
-                  <p class='<?php echo wpsc_checkout_form_element_id(); ?>'>
-                     <label class='wpsc_email_address' for='" . wpsc_checkout_form_element_id() . "'>
-                     " . __('Enter your email address', 'wpsc') . "
-                     </label>
-                  <p class='wpsc_email_address_p'>
-                  <img src='https://secure.gravatar.com/avatar/empty?s=60&amp;d=mm' id='wpsc_checkout_gravatar' />
-                  " . wpsc_checkout_form_field();
-                  
-                   if(wpsc_the_checkout_item_error() != '')
-                      $email_markup .= "<p class='validation-error'>" . wpsc_the_checkout_item_error() . "</p>";
-               $email_markup .= "</div>";
              }else{ ?>
 			<tr>
                <td class='<?php echo wpsc_checkout_form_element_id(); ?>'>
@@ -381,8 +399,7 @@ endif;
 <?php 
 	$buffer_contents = ob_get_contents();
 	ob_end_clean();
-	if(isset($email_markup))
-		echo $email_markup;
+	
 	echo $buffer_contents;
 ?>
 
@@ -400,12 +417,13 @@ endif;
       </tr>
       <?php endif; ?>
       <?php do_action('wpsc_inside_shopping_cart'); ?>
-
+	</table>
       <?php  //this HTML displays activated payment gateways   ?>
-      <?php if(wpsc_gateway_count() > 1): // if we have more than one gateway enabled, offer the user a choice ?>
+      <table class="wpsc_checkout_table table-3">
          <tr>
          <td colspan='2' class='wpsc_gateway_container'>
-            <h3><?php _e('Payment Type', 'wpsc');?></h3>
+            <h4><?php _e('Payment Info', 'wpsc');?></h4>
+      <?php if(wpsc_gateway_count() > 1): // if we have more than one gateway enabled, offer the user a choice ?>
             <?php while (wpsc_have_gateways()) : wpsc_the_gateway(); ?>
                <div class="custom_gateway">
                      <label><input type="radio" value="<?php echo wpsc_gateway_internal_name();?>" <?php echo wpsc_gateway_is_checked(); ?> name="custom_gateway" class="custom_gateway"/><?php echo wpsc_gateway_name(); ?> 
@@ -421,9 +439,7 @@ endif;
                   <?php endif; ?>
                </div>
             <?php endwhile; ?>
-            </tr></td>
          <?php else: // otherwise, there is no choice, stick in a hidden form ?>
-            <tr><td colspan="2" class='wpsc_gateway_container'>
             <?php while (wpsc_have_gateways()) : wpsc_the_gateway(); ?>
                <input name='custom_gateway' value='<?php echo wpsc_gateway_internal_name();?>' type='hidden' />
 
@@ -433,9 +449,9 @@ endif;
                      </table>
                   <?php endif; ?>
             <?php endwhile; ?>
+         <?php endif; ?>
          </td>
          </tr>
-         <?php endif; ?>
 
       <?php if(wpsc_has_tnc()) : ?>
          <tr>
@@ -446,56 +462,18 @@ endif;
       <?php endif; ?>
       </table>
 
-   <table  class='wpsc_checkout_table table-4'>
-      <?php if(wpsc_uses_shipping()) : ?>
-	      <tr>
-	         <td class='wpsc_total_price_and_shipping'colspan='2'>
-	            <h4><?php _e('Review and purchase','wpsc'); ?></h4>
-	         </td>
-	      </tr>
-	
-	      <tr class="total_price total_shipping">
-	         <td class='wpsc_totals'>
-	            <?php _e('Total Shipping', 'wpsc'); ?>:
-	         </td>
-	         <td class='wpsc_totals'>
-	            <span id="checkout_shipping" class="pricedisplay checkout-shipping"><?php echo wpsc_cart_shipping(); ?></span>
-	         </td>
-	      </tr>
-      <?php endif; ?>
-
-     <?php if(wpsc_uses_coupons() && (wpsc_coupon_amount(false) > 0)): ?>
-      <tr class="total_price">
-         <td class='wpsc_totals'>
-            <?php _e('Discount', 'wpsc'); ?>:
-         </td>
-         <td class='wpsc_totals'>
-            <span id="coupons_amount" class="pricedisplay"><?php echo wpsc_coupon_amount(); ?></span>
-          </td>
-         </tr>
-     <?php endif ?>
-
-
-
-   <tr class='total_price'>
-      <td class='wpsc_totals'>
-      <?php _e('Total Price', 'wpsc'); ?>:
-      </td>
-      <td class='wpsc_totals'>
-         <span id='checkout_total' class="pricedisplay checkout-total"><?php echo wpsc_cart_total(); ?></span>
-      </td>
-   </tr>
-   </table>
-
 <!-- div for make purchase button -->
       <div class='wpsc_make_purchase'>
-         <span>
             <?php if(!wpsc_has_tnc()) : ?>
                <input type='hidden' value='yes' name='agree' />
             <?php endif; ?>
                <input type='hidden' value='submit_checkout' name='wpsc_action' />
                <input type='submit' value='<?php _e('Purchase', 'wpsc');?>' name='submit' class='make_purchase wpsc_buy_button' />
-         </span>
+               <span class="req"><?php _e('Fields marked with an asterisk* must be filled in.', 'wpsc');?></span>
+               <div class="cred"><?php
+$options = get_option('progo_options');
+echo $options['credentials'];
+?></div>
       </div>
 
 <div class='clear'></div>

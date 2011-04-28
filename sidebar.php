@@ -15,9 +15,14 @@
  * then the sidebar simply doesn't exist, so we'll hard-code in
  * some default sidebar stuff just in case.
  */
+if ( is_page('checkout') ) {
+	dynamic_sidebar('checkout');
+} else {
 if ( ! dynamic_sidebar( 'main' ) ) :
 // do SHOPPING CART widget ?
 ?>
- <?php endif; // end primary widget area ?>
+ <?php endif; // end primary widget area
+}
+?>
 </div>
 </div>
