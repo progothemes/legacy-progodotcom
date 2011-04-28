@@ -44,13 +44,19 @@ jQuery(function($) {
 		}
 	}
 	
+	$('#cartcollapse').hide().parent().parent().prev().click(function() {
+		$('#cartcollapse').stop().slideDown();
+	});
+	
+	$('#nav ul.sub-menu').wrap('<div class="sub" />').parent().prev().addClass('flink').bind('mouseover',function() {
+		$(this).parent().addClass('over');
+	}).parent().bind('mouseleave',function() {
+		$(this).removeClass('over');
+	});
+	
 	Cufon.replace('#slogan', { fontFamily: 'TitilliumText', fontWeight: '400' });
 	Cufon.replace('#main h2', { fontFamily: 'TitilliumText', fontWeight: '600' });
 	Cufon.replace('#secondary h3', { fontFamily: 'TitilliumText', fontWeight: '800' });
 	Cufon.replace('h1.page-title', { fontFamily: 'TitilliumText', fontWeight: '800', textShadow: '3px 3px rgba(160, 72, 0, 1.0)' });
 	Cufon.now();
-	
-	$('#cartcollapse').hide().parent().parent().prev().click(function() {
-		$('#cartcollapse').stop().slideDown();
-	});
 });
