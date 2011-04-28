@@ -4,7 +4,20 @@
  * @subpackage ProGoDotCom
  * @since ProGoDotCom 1.0
  */
+ if(!is_user_logged_in()) { ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ProGo | Coming Soon</title>
+<style type="text/css">
+body { margin: 0; padding: 0; min-width: 960px; background: #ec7d1b url(/soon.jpg) no-repeat 50% 0; min-height: 480px }
+</style>
+</head>
 
+<body>
+</body>
+</html><?php } else {
 get_header();
 global $wp_query, $post;
 $options = get_option( 'progo_options' );
@@ -127,4 +140,6 @@ if($options['frontpage'] == 'posts') {
 	get_sidebar();
 } ?>
 </div><!-- #container -->
-<?php get_footer(); ?>
+<?php get_footer(); 
+ }
+?>
