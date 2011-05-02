@@ -17,11 +17,10 @@ get_header(); ?>
 <?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
 <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 <h2 class="entry-title"><?php the_title(); ?></h2>
-<div class="entry-meta"><?php progo_posted_on(); ?></div>
 <div class="entry">
 <?php the_content(); ?>
 </div><!-- .entry -->
-<div class="entry-utility"><div class="in"><?php progo_posted_in(); ?></div><div class="sha"><?php if(function_exists('sharethis_button')) sharethis_button(); ?></div></div>
+<div class="entry-utility"><div class="in"><?php progo_posted_on(); progo_posted_in(); ?></div><div class="sha"><?php if(function_exists('sharethis_button')) sharethis_button(); ?></div></div>
 </div><!-- #post-## -->
 <?php comments_template( '', true ); ?>
 <?php endwhile; // end of the loop. ?>
