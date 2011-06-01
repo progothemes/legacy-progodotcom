@@ -3,8 +3,8 @@
  * Widget area in the header? Yes.
  *
  * @package ProGo
- * @subpackage ProGoDotCom
- * @since ProGoDotCom 1.0
+ * @subpackage Ecommerce
+ * @since Direct 1.0
  */
 ?>
 <div class="grid_6">

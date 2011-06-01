@@ -3,11 +3,11 @@
  * Sidebar for Blog areas.
  *
  * @package ProGo
- * @subpackage ProGoDotCom
- * @since ProGoDotCom 1.0
+ * @subpackage Ecommerce
+ * @since Direct 1.0
  */
 ?>
-<div class="grid_3">
+<div class="grid_4">
 <div id="secondary">
 <?php
 /* When we call the dynamic_sidebar() function, it'll spit out

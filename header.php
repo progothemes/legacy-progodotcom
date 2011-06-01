@@ -5,8 +5,8 @@
  * Displays all of the <head> section and everything up till <div id="main">
  *
  * @package ProGo
- * @subpackage ProGoDotCom
- * @since ProGoDotCom 1.0
+ * @subpackage Ecommerce
+ * @since Ecommerce 1.0
  */
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -36,7 +36,6 @@
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-<meta property="og:image" content="<?php bloginfo( 'template_url' ); ?>/images/logo.png"/>
 <?php wp_head(); ?>
 </head>
 
@@ -44,8 +43,9 @@
 <div id="wrap" class="container_12">
 	<div id="page" class="container_12">
         <div id="hdr" class="container_12">
-        	<div class="grid_6 alpha">
-            <?php progo_sitelogo();
+        	<div class="grid_6">
+            <a href="<?php bloginfo('url') ?>" id="logo"><? bloginfo( 'name' ) ?></a>
+            <?php 
             $options = get_option( 'progo_options' );
             if ( (int) $options['showdesc'] == 1 ) { ?>
             <div id="slogan"><?php bloginfo( 'description' ); ?></div>
