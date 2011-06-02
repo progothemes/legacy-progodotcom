@@ -116,12 +116,15 @@ if ( ! function_exists( 'progo_summary' ) ):
  * chops off (product) text either @ <!-- more --> or last space before 152 characters
  * @since ProGoDotCom 1.0
  */
-function progo_summary( $morelink, $limit = 150 ) {
+function progo_summary( $morelink, $limit = 150, $sanitize = false, $echo = true ) {
 	global $post;
 	$content = $post->post_content;
+	if ( $sanitize == true ) {
+		$content = wp_kses($content, array());
+	}
 	if ( $limit !== false ) {
 		$lbrat = strpos( $content, "\n" );
-		if( $lbrat > 0 && $lbrat < $limit ) {
+		if( ( $lbrat > 0 ) && ( $lbrat < $limit ) && ( $sanitize == false ) ) {
 			$content = substr( $content, 0, $lbrat );
 		} else {
 			$content = substr( $content, 0, strrpos( substr( $content, 0, $limit ), ' ' ) ) ."...";
@@ -129,6 +132,9 @@ function progo_summary( $morelink, $limit = 150 ) {
 	}
 	if( $morelink != false ) {
 		$content .= "\n<a href='". wpsc_the_product_permalink() ."' class='more-link'>$morelink</a>";
+	}
+	if ( $echo == false ) {
+		return wpautop($content);
 	}
 	echo wpautop($content);
 }
@@ -246,7 +252,12 @@ function progo_twoblogs( $atts ) {
 		$oot .='<div class="post">';
 		$oot .= get_the_post_thumbnail($post->ID, 'thumbnail', array('class'=>'thm'));
 		$oot .= '<h3>'. the_title('','',false) .'</h3>';
-		$oot .= '<p>body content...</p>';
+		/*
+		$content = wp_kses($post->post_content, array());
+		$content = substr( $content, 0, strrpos( substr( $content, 0, 240 ), ' ' ) );
+		$oot .= '<p>'. $content  .'...</p>';
+		*/
+		$oot .= progo_summary('read more', 240, true, false);
 		$oot .= '</div>';
     }
 	$oot .= '</div>';

@@ -54,7 +54,7 @@ jQuery(function($) {
 		$(this).removeClass('over');
 	});
 	
-	Cufon.replace('#slogan', { fontFamily: 'TitilliumText', fontWeight: '400' });
+	Cufon.replace('#slogan, #main h2.banner', { fontFamily: 'TitilliumText', fontWeight: '400' });
 	Cufon.replace('#main h2', { fontFamily: 'TitilliumText', fontWeight: '600' });
 	Cufon.replace('h3', { fontFamily: 'TitilliumText', fontWeight: '800' });
 	Cufon.replace('h1.page-title', { fontFamily: 'TitilliumText', fontWeight: '800', textShadow: '3px 3px rgba(160, 72, 0, 1.0)' });
