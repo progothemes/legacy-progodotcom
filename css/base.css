@@ -29,7 +29,7 @@ body.blog .container_12 #main.grid_8 { padding: 6px 71px 0 23px; width:596px }
 /* =Global Elements */
 
 /* Main global 'theme' and typographic styles */
-body, input, textarea { color: #666; font-size: 12px; line-height: 18px }
+body, input, textarea { color: #333; font-size: 12px; line-height: 18px }
 hr { background-color: #e7e7e7; border: 0; clear: both; height: 1px; margin-bottom: 18px }
 
 /* Text elements */
@@ -197,6 +197,10 @@ img.avatar { float: left; margin: 0 10px 10px 0 }
 .block.share .st_sharethis .chicklets /*, select.current_country, input.billing_region.text*/ { display: none }
 .block.twitter a.tw { float: left; padding-left: 30px; line-height:21px; background: url(../images/twitter.jpg) no-repeat 0 0 }
 .block.fblike .inside { padding: 14px 0 5px 5px }
+/* wpsc */
+body.single-wpsc-product .container_12 #main.grid_8 { width: 940px }
+body.single-wpsc-product .container_12 .grid_4 { display: none }
+body.single-wpsc-product .container_12 .single_product_display.group .grid_4 { display: block }
 
 /* footer */
 /* optional callout */
