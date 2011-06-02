@@ -170,6 +170,7 @@ span.rating_saved{ color: #990000; display: none }
 .wpsc_checkout_table input.text{ width:255px }
 #checkout_page_container p.validation-error { clear:both; color:red }
 table.wpsc_checkout_table { width: 100%; border: none; padding: 0 }
+table.wpsc_checkout_table.table-2 { display: none } /*NOSHIPPING*/
 table.wpsc_checkout_table.table-4 { border-top: 1px solid #ccc }
 table.wpsc_checkout_table tr td { padding: 10px 8px; font-size: 13px; vertical-align:top }
 table.wpsc_checkout_table tr td.wpsc_CC_details { width: 134px }

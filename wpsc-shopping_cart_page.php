@@ -328,17 +328,19 @@ endif;
                <?php if(wpsc_is_shipping_details()):?>
                <tr class='same_as_shipping_row'>
                   <td colspan ='2'>
-                  <?php $checked = 'checked="checked"';
+                  <?php $checked = '';
+                  if(isset($_POST['shippingSameBilling']) && $_POST['shippingSameBilling'])
                   	$_SESSION['shippingSameBilling'] = true;
-                  if(isset($_POST['submit']) && !isset($_POST['shippingSameBilling'])) {
+                  elseif(isset($_POST['submit']) && !isset($_POST['shippingSameBilling']))
                   	$_SESSION['shippingSameBilling'] = false;
-                  		$checked = '';
-				  }
-                   ?><div id="sas_div">
+/*
+                  	if($_SESSION['shippingSameBilling'] == 'true')
+                  		$checked = 'checked="checked"';
+						*/
+                   ?>
 					<label for='shippingSameBilling'><?php _e('Same as billing address:','wpsc'); ?></label>
 					<input type='checkbox' value='true' name='shippingSameBilling' id='shippingSameBilling' <?php echo $checked; ?> />
 					<br/><span id="shippingsameasbillingmessage"><?php _e('Your order will be shipped to the billing address', 'wpsc'); ?></span>
-                    </div>
                   </td>
                </tr>
                <?php endif;
