@@ -248,10 +248,12 @@ function progo_twoblogs( $atts ) {
 		'numberposts' => 2,
 		'category' => 13
 	));
+	$alpha = true;
 	foreach ( $posts as $post) {
-		$oot .='<div class="post">';
-		$oot .= get_the_post_thumbnail($post->ID, 'thumbnail', array('class'=>'thm'));
-		$oot .= '<h3>'. the_title('','',false) .'</h3>';
+		$oot .='<div class="post grid_6 '. ($alpha ? 'alpha' : 'omega') .'">';
+		$alpha = false;
+		$oot .= '<a href="'. get_permalink() .'">'. get_the_post_thumbnail($post->ID, 'thumbnail', array('class'=>'thm')) .'</a>';
+		$oot .= '<h3><a href="'. get_permalink() .'">'. the_title('','',false) .'</a></h3>';
 		/*
 		$content = wp_kses($post->post_content, array());
 		$content = substr( $content, 0, strrpos( substr( $content, 0, 240 ), ' ' ) );
@@ -265,6 +267,15 @@ function progo_twoblogs( $atts ) {
 }
 endif;
 add_shortcode( 'progo2blogs', 'progo_twoblogs' );
+if ( ! function_exists('progo_theend') ):
+function progo_theend( $atts, $content ) {
+	if(strpos($content,'</p>') === 0) $content = substr($content,4);
+	$strlen = strlen($content) - 3;
+	if(strrpos($content,'<p>') == $strlen ) $content = substr($content, 0, $strlen);
+	return '<div class="theend">'. $content .'</div>';
+}
+endif;
+add_shortcode( 'progoend', 'progo_theend' );
 /********* Back-End Functions *********/
 if ( ! function_exists( 'progo_admin_menu_cleanup' ) ):
 /**

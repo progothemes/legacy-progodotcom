@@ -17,6 +17,7 @@ body, input, textarea, .pingback a.url { font-family: Arial, Helvetica, sans-ser
 body { background: #555 url(../images/bg.png) repeat-x 0 0 }
 body.home { background-image: url(../images/bg-home.png) }
 #fx { float: left; width: 100%; min-width: 1080px; background: url(../images/fx.jpg) no-repeat 50% 103px }
+body.home #fx { background-image: url(../images/fx-home.jpg); }
 #wrap { width: 1000px }
 #page { float: left; padding: 0 20px }
 #container { float: left; margin: 0 -20px; background: url(../images/shadow.png) repeat-y 0 0; padding: 0 20px 20px; position: relative }
@@ -82,6 +83,7 @@ ul#nav li li a { float:none; height: auto; padding: 0; color: #000; font-weight:
 ul#nav li.current-menu-item a, body.wpsc ul#nav li.wpsc a, body.blog ul#nav li.blog a, ul#nav li a:hover, ul#nav li.over a.flink { background: url(../images/navon.png) repeat-x 0 100%; font-weight: bold; text-decoration: none; color: #000 }
 ul#nav li.current-menu-item li a, ul#nav li li a:hover { background: none; font-weight: normal }
 ul#nav li li a:hover { text-decoration: underline }
+ul#nav li li.current-menu-item a { background: none; text-decoration: underline; font-weight: normal }
 
 .hblock { position: absolute; top: 0; right: -33px; z-index: 7; display: block; width: 194px }
 .hblock.social { top: 11px; right: 177px; z-index:5; width: auto }
@@ -91,7 +93,13 @@ ul#nav li li a:hover { text-decoration: underline }
 #hdr #closecart { color: #c24c05; font-weight: bold; position: absolute; top: 15px; left: 36px; font-size: 13px }
 #hdr #cartcounter { position: absolute; z-index: 10; font-size: 13px; left: 144px; top:15px }
 /* content */
+#htop { float: left; width: 100%; height: 300px; text-align: center; color: #fff; position: relative }
+#htop h1 { text-transform: uppercase; font-size: 98px; letter-spacing: -0.03em; font-weight: normal; margin: 25px 0 0 }
+#htop h1 em { font-style: normal; text-transform: lowercase; font-size: 55px; letter-spacing: 0; position: relative; top: -63px }
+#htop a { display: block; text-align: left; text-indent: -999em; width: 314px; height: 138px; position: absolute; left: 50%; bottom: 0; margin-left: -157px; z-index: 10; background: url(../images/hbtn.png) no-repeat 0 0 }
+
 #pagetop { float: left; width: 100%; height: 155px; position: relative; color: #fff; margin: 0 -20px; padding: 0 20px; background:url(../images/shadt.png) no-repeat 0 100% }
+body.home #pagetop { background: url(../images/hshad.jpg) no-repeat 0 0 }
 #pagetop .page-title { float: left; width: 906px; margin: 3px 25px; font-size: 98px; line-height:120%; letter-spacing:-0.03em }
 /* homepage slides */
 #pagetop.sliding { overflow: hidden }
@@ -105,7 +113,8 @@ ul#nav li li a:hover { text-decoration: underline }
 .ar { float: right; display: block; width: 112px; height: 24px; position: absolute; bottom: 0; right: 10px; background: url(../images/ar.png) no-repeat 0 0 }
 .ar a { float: left; width: 56px; height: 24px; background: url(../images/fx.gif) repeat 0 0 }
 
-#main, #main input, #main textarea { color: #333; font-size: 13px; line-height: 120% }
+#main { font-size: 13px }
+#main input, #main textarea { color: #333; font-size: 13px; line-height: 120% }
 #main input.upd { border: none; background: none; padding: 0; cursor:pointer }
 #main p, #main ul, #main ol, #main dd, #main pre, #main hr { margin-bottom: 18px }
 #main ul ul, #main ol ol, #main ul ol, #main ol ul { margin-bottom: 0 }
@@ -118,7 +127,7 @@ body.blog #main .post { float: left; width: 596px; margin-bottom: 30px }
 .entry-meta { font-size: 12px }
 .entry-meta abbr, .entry-utility abbr { border: none }
 .entry-meta abbr:hover, .entry-utility abbr:hover { border-bottom: 1px dotted #666 }
-body.blog #main .entry { margin: 17px 0 0; line-height: 18px }
+body.blog #main .entry { margin: 17px 0 0 }
 .entry sup, .entry sub { font-size: 10px }
 .entry blockquote.left { float: left; margin-left: 0; margin-right: 24px; text-align: right; width: 33% }
 .entry blockquote.right { float: right; margin-left: 24px; margin-right: 0; text-align: left; width: 33% }
@@ -152,13 +161,21 @@ img.avatar { float: left; margin: 0 10px 10px 0 }
 #main .alignright, #main img.alignright { display: inline; float: right; margin-left: 24px; margin-top: 4px }
 #main .aligncenter, #main img.aligncenter { clear: both; display: block; margin-left: auto; margin-right: auto }
 #main img.alignleft, #main img.alignright, #main img.aligncenter { margin-bottom: 12px }
-#main .wp-caption { background: #f1f1f1; line-height: 18px; margin-bottom: 20px; padding: 4px; text-align: center }
+#main .wp-caption { background: #f1f1f1; margin-bottom: 20px; padding: 4px; text-align: center }
 #main .wp-caption img { margin: 5px 5px 0 }
 #main .wp-caption p.wp-caption-text { color: #888; font-size: 12px; margin: 5px }
 #main .wp-smiley { margin: 0 }
 #main .attachment img { /* single attachment images should be centered */ display: block; margin: 0 auto }
 #main img.fullwidth { margin: 0 -24px }
-#main h2.banner { margin: -35px -42px 10px; width: 960px; height: 141px; text-align: center; color: #fff; padding: 40px 32px 0; background:url(../images/banner.png) no-repeat 0 0; font-size: 49px; line-height: 45px }
+
+#main h2.banner { margin: -35px -42px 11px; width: 960px; height: 141px; text-align: center; color: #fff; padding: 40px 32px 0; background:url(../images/banner.png) no-repeat 0 0; font-size: 49px; line-height: 45px }
+.twoposts .post { position: relative }
+.twoposts img.thm { float: left; margin-right: 12px }
+.twoposts .alpha img.thm { margin-left: -10px; position: relative }
+.twoposts h3 { line-height: 22px; margin: 2px 0 10px; max-height: 45px; overflow: hidden }
+#main .twoposts p { padding-right: 15px }
+.twoposts a.more-link { float: left; width: 101px; height: 26px; padding: 4px 0 0; color: #fff; font-weight: bold; text-align: center; background: url(../images/readmore.png) no-repeat 0 0; position: absolute; bottom: 0; right: 117px; text-decoration: none }
+.twoposts .alpha a.more-link { right: 127px }
 /* sidebars */
 #secondary { float: left; width: 100%; padding: 20px 0 0 }
 .block { float: left; width: 100%; margin: 0 0 30px }
@@ -182,12 +199,12 @@ img.avatar { float: left; margin: 0 10px 10px 0 }
 .block.fblike .inside { padding: 14px 0 5px 5px }
 
 /* footer */
-/*
-#fbar { float: left; width: 920px; padding: 12px 20px; color: #fff; background: #000 url(../images/BlackGrey/fbar.png) repeat-x 0 0; font-size: 14px; line-height:20px }
-#fbar a { color: #fff }
-#fbar ul { list-style: none; float: left; margin: 0; padding: 0 }
-#fbar li { float: left }
-*/
+/* optional callout */
+#main .theend { float: left; width: 947px; background: url(../images/theend.jpg) no-repeat 0 100%; margin: 30px 0 -35px -24px; padding: 0 0 0 41px; color: #fff; font-weight: bold }
+#main .theend img.alignright { margin: 0 }
+#main .theend h2 { font-size: 40px; line-height: 45px; letter-spacing: -0.03em }
+#main .theend p { margin-bottom: 26px }
+/* actual shadow */
 #theend { float: left; width: 1000px; height: 46px; margin: 0 -20px; background: url(../images/end.png) no-repeat 0 0 }
 #fwrap { float: left; width: 100%; min-width: 1080px; background: #fff; padding: 25px 0 }
 .fblock { float: left; width: 50% }
@@ -206,5 +223,4 @@ img.avatar { float: left; margin: 0 10px 10px 0 }
 #ftr .right img { float: right; margin: -5px 7px 0 5px }
 
 /* other */
-*:focus {
-outline: none }
+*:focus { outline: none }

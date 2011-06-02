@@ -201,23 +201,8 @@
 							</div><!--close single_additional_description-->
 						<?php endif; ?>		
 						<?php do_action( 'wpsc_product_addon_after_descr', wpsc_the_product_id() ); ?>
-						<?php
-						/**
-						 * Custom meta HTML and loop
-						 */
-						?>
-                        <?php if (wpsc_have_custom_meta()) : ?>
-						<div class="custom_meta">
-							<?php while ( wpsc_have_custom_meta() ) : wpsc_the_custom_meta(); ?>
-								<strong><?php echo wpsc_custom_meta_name(); ?>: </strong><?php echo wpsc_custom_meta_value(); ?><br />
-							<?php endwhile; ?>
-						</div><!--close custom_meta-->
-                        <?php endif; ?>
-                        </div>
+						</div>
 		</div><!--close single_product_display-->
-		
-		<?php echo wpsc_product_comments(); ?>
-
 <?php endwhile;
 
     do_action( 'wpsc_theme_footer' ); ?> 	
