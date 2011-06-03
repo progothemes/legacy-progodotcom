@@ -1,4 +1,4 @@
-<div id="cartcounter"><?php $itemcount = wpsc_cart_item_count(); echo '('. absint($itemcount) .')'; ?></div><div id="cartcollapse"><a href="#close" id="closecart" onclick="jQuery(this).parent().slideUp(); return false;">X close</a>
+<div class="cartcounter"><?php $itemcount = wpsc_cart_item_count(); echo '('. absint($itemcount) .')'; ?><em> Items in your cart</em></div><div class="cartcollapse"><a href="#close" class="closecart" onclick="jQuery(this).parent().slideUp(); return false;">X close</a>
 <?php if(isset($cart_messages) && count($cart_messages) > 0) { ?>
 	<?php foreach((array)$cart_messages as $cart_message) { ?>
 	  <span class="cart_message"><?php echo $cart_message; ?></span>

@@ -65,6 +65,34 @@ function progo_setup() {
 	add_filter('menu_order', 'progo_admin_menu_order');
 }
 endif;
+if ( ! function_exists( 'progo_wpsc_taxonomies' ) ):
+function progo_wpsc_taxonomies() {
+  $labels = array(
+    'name' => _x( 'Performance Marketing Meter', 'taxonomy general name' ),
+    'singular_name' => _x( 'Area', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search Areas' ),
+    'popular_items' => __( 'Popular Areas' ),
+    'all_items' => __( 'All Areas' ),
+    'parent_item' => null,
+    'parent_item_colon' => null,
+    'edit_item' => __( 'Edit Area' ), 
+    'update_item' => __( 'Update Area' ),
+    'add_new_item' => __( 'Add New Area' ),
+    'new_item_name' => __( 'New Area Name' ),
+    'separate_items_with_commas' => __( 'Separate areas with commas' ),
+    'add_or_remove_items' => __( 'Add or remove areas' ),
+    'choose_from_most_used' => __( 'Choose from the most used areas' ),
+    'menu_name' => __( 'Marketing Meter' ),
+  ); 
+
+  register_taxonomy('progo_pmm','wpsc-product',array(
+    'hierarchical' => false,
+    'labels' => $labels,
+    'show_ui' => true
+  ));
+}
+add_action( 'init', 'progo_wpsc_taxonomies', 0 );
+endif;
 
 /********* Front-End Functions *********/
 if ( ! function_exists( 'progo_posted_on' ) ):
@@ -297,6 +325,9 @@ function progo_admin_menu_cleanup() {
 	$sub1[0] = 'Change Theme';
 	$sub[] = $sub1;
 	$submenu['themes.php'] = $sub;
+	
+	unset($submenu['edit.php?post_type=wpsc-product'][18]);
+//	wp_die('<pre>'.print_r($submenu,true).'</pre>');
 }
 endif;
 if ( ! function_exists( 'progo_admin_menu_order' ) ):
@@ -908,6 +939,15 @@ function progo_dotcom_widgets() {
 		'before_title' => '<div class="title">',
 		'after_title' => '</div>'
 	));
+	register_sidebar(array(
+		'name' => 'More',
+		'id' => 'moreright',
+		'description' => 'Alt Sidebar for MORE pages',
+		'before_widget' => '<div class="block %1$s %2$s">',
+		'after_widget' => '</div></div>',
+		'before_title' => '<h3 class="title"><span class="spacer">',
+		'after_title' => '</span></h3><div class="inside">'
+	));
 	
 	$progo_widgets = array( 'FBLikeBox', 'Tweets', 'Share', 'Social', 'Support' );
 	foreach ( $progo_widgets as $w ) {
@@ -945,6 +985,14 @@ function progo_metabox_cleanup() {
 				unset($wp_meta_boxes['wpsc-product']['side']['low']['wpsc_price_control_forms']);
 				// Merge the two arrays together so our widget is at the beginning
 				$wp_meta_boxes['wpsc-product']['side']['core'] = array_merge( $toparr, $wp_meta_boxes['wpsc-product']['side']['core'] );
+				
+				// remove default PERFORMANCE MARKETING METER box and add our own instead
+				unset($wp_meta_boxes['wpsc-product']['side']['core']['tagsdiv-progo_pmm']);
+				
+				$post_categories = wp_get_object_terms( $post->ID, 'wpsc_product_category', array('fields' => 'ids') );
+				if ( in_array( 9, $post_categories ) ) {
+					add_meta_box("progo_pmm_box", "Theme Information", "progo_pmm_box", "wpsc-product", "side", "low");
+				}
 			}
 			break;
 		case 'page':
@@ -954,6 +1002,40 @@ function progo_metabox_cleanup() {
 }
 endif;
 add_action( 'do_meta_boxes', 'progo_metabox_cleanup' );
+if ( ! function_exists( 'progo_pmm_box' ) ):
+function progo_pmm_box() {
+	global $post;
+	// Get all the PERFORMANCE MARKETING METER terms
+	$marketing_terms = get_option( 'progo_pmm_terms' ); //ca$hed
+	$custom = get_post_meta($post->ID,'_progo_pmm');
+	$pmm_ratings = $custom[0];
+	$pmm_arrow = '';
+	if(is_array($pmm_ratings) == false) {
+		$pmm_ratings = array();
+	} elseif(isset($pmm_ratings['arrowd'])) {
+		$pmm_arrow = $pmm_ratings['arrowd'];
+		unset($pmm_ratings['arrowd']);
+	}
+	if($pmm_arrow == '') {
+		$pmm_arrow = 'get your new website today';
+	}
+	
+	echo '<p><strong>Performance Marketing Meter</strong></p><table>';
+	// Loop through each variation set
+	foreach ( (array)$marketing_terms as $k => $n ) { ?>
+		<tr><th scope="row"><label><?php echo $n; ?></label></th><td><select name="_progo_pmm[<?php echo $k; ?>]" style="width:120%"><?php
+        $thislevel = isset($pmm_ratings[$k]) ? $pmm_ratings[$k] : 0;
+		for ( $i = 0; $i < 6; $i++ ) {
+			echo '<option value="'. $i .'"'. ($thislevel == $i ? ' selected="selected"' : '') .'>'. $i .'</option>';
+		}
+		?></select></td></tr>
+	<?php
+	}
+	echo '</table><p><a href="'. admin_url('edit-tags.php?taxonomy=progo_pmm&post_type=wpsc-product') .'" target="_blank">Add more Marketing categories</a></p>';
+	echo '<p><label for="_progo_pmm[arrowd]"><strong>Arrow Headline</strong></label><br /><input type="text" name="_progo_pmm[arrowd]" value="'. esc_attr($pmm_arrow) .'" size="38" /></p>';
+	
+}
+endif;
 if ( ! function_exists( 'progo_sidebar_box' ) ):
 /**
  * outputs html for "Sidebar" meta box on EDIT PAGE
@@ -968,8 +1050,8 @@ function progo_sidebar_box() {
 	$custom = get_post_meta($post->ID,'_progo_sidebar');
 	$sidebar = $custom[0];
 	
-	$ids = array('main', 'blog', 'checkout', 'contact');
-	$titles = array('Main Sidebar (default)', 'Blog', 'Checkout', 'Contact');
+	$ids = array('main', 'blog', 'checkout', 'moreright');
+	$titles = array('Main Sidebar (default)', 'Blog', 'Checkout', 'More');
 	
 	if(!in_array($sidebar, $ids)) {
 		$sidebar = 'main';
@@ -1060,7 +1142,7 @@ if ( ! function_exists( 'progo_save_meta' ) ):
  * checks for _progo (direct) meta data, and performs validation & sanitization
  * @param post_id to check meta on
  * @return post_id
- * @since Ecommerce 1.0.9
+ * @since DotCom 1.0
  */
 function progo_save_meta( $post_id ){
 	// verify if this is an auto save routine. If it is,
@@ -1068,24 +1150,43 @@ function progo_save_meta( $post_id ){
 	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) { 
 		return $post_id;
 	}
-	// check permissions
-	if ( $_POST['post_type'] == 'page' ) {
-		if ( !current_user_can( 'edit_page', $post_id ) ) {
-			return $post_id;
-		}
-	} else {
-	//if ( !current_user_can( 'edit_post', $post_id ) )
-	  return $post_id;
-	}
-	
-	// OK, we're authenticated: we need to find and save the data
-	if ( isset( $_POST['_progo_sidebar'] ) ) {
-		$sidebar = $_POST['_progo_sidebar'];
+	switch ( $_POST['post_type'] ) {
+		case 'page':
+			if ( !current_user_can( 'edit_page', $post_id ) ) {
+				return $post_id;
+			}
 		
-		if ( in_array ( $sidebar, array('main', 'blog', 'checkout', 'contact') ) ) {
-			update_post_meta($post_id, "_progo_sidebar", $sidebar);
-			return $sidebar;
-		}
+			// OK, we're authenticated: we need to find and save the data
+			if ( isset( $_POST['_progo_sidebar'] ) ) {
+				$sidebar = $_POST['_progo_sidebar'];
+				
+				if ( in_array ( $sidebar, array('main', 'blog', 'checkout', 'moreright') ) ) {
+					update_post_meta($post_id, "_progo_sidebar", $sidebar);
+					return $sidebar;
+				}
+			}
+			break;
+		case 'wpsc-product':
+			if ( isset( $_POST['_progo_pmm'] ) ) {
+				$progo_pmm = $_POST['_progo_pmm'];
+				if(is_array($progo_pmm)) {
+					arsort($progo_pmm);
+					update_post_meta($post_id, "_progo_pmm", $progo_pmm);
+					// i know this could be done upon ADDING a new term the PM terms but w/e
+					$marketing_terms = get_terms( 'progo_pmm', array (
+						'hide_empty' => 0,
+						'parent'     => 0
+					) );
+//					$cached_terms = get_option( 'progo_pmm_terms' );
+					$termcache = array();
+					foreach ( $marketing_terms as $t ) {
+						$termcache[$t->term_id] = $t->name;
+					}
+					update_option( 'progo_pmm_terms', $termcache );
+					return $progo_pmm;
+				}
+			}
+			break;
 	}
 	return $post_id;
 }
