@@ -99,7 +99,7 @@ global $wp_query;
 						
 						
 						<div class="wpsc_description">
-							<?php progo_summary( 'More Details' ); ?>
+							<?php progo_summary( '<strong>LEARN MORE</strong>' ); ?>
                         </div><!--close wpsc_description-->
 				
 						<?php if(wpsc_the_product_additional_description()) : ?>

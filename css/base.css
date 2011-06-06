@@ -128,8 +128,15 @@ body.home #pagetop { background: url(../images/hshad.jpg) no-repeat 0 0; padding
 .meter.p52 strong { color: #E2FE3F }
 .meter.p52 span.stars span.on { background-position: 0 -22px }
 
-.ar { float: right; display: block; width: 112px; height: 24px; position: absolute; bottom: 0; right: 10px; background: url(../images/ar.png) no-repeat 0 0 }
-.ar a { float: left; width: 56px; height: 24px; background: url(../images/fx.gif) repeat 0 0 }
+.ar { float: left; display: block; width: 965px; height: 38px; position: absolute; bottom: 2px; left: 17px }
+.ar a { float: left }
+.ar a.r { width: 38px; height: 38px; background: url(../images/ar.jpg) no-repeat 0 0 }
+.ar a.r.n { float: right; background-position: 100% 0 }
+.ar a.s { color: #fff; font-size: 16px; margin: 8px 0 0 41px; text-transform: uppercase }
+.ar a.s .on, .ar a.s.on .off { display: none }
+.ar a.s:hover { text-decoration: none }
+.ar a.s.on .on { display: block; color: #5EE2FF }
+.ar a.s.s1-52 .on { color: #e2fe3f }
 
 #main { font-size: 13px }
 #main input, #main textarea { color: #333; font-size: 13px; line-height: 120% }
@@ -196,6 +203,7 @@ img.avatar { float: left; margin: 0 10px 10px 0 }
 .twoposts .alpha a.more-link { right: 127px }
 /* sidebars */
 #secondary { float: left; width: 100%; padding: 20px 0 0 }
+body.wpsc #main, body.wpsc #secondary { padding-top: 10px }
 .block { float: left; width: 99%; border: 1px solid #ccc; margin: 0 0 9px }
 .block h3.title { float: left; width: 100%; padding: 8px 0; margin: 0; font: 19px/23px Arial, Helvetica, sans-serif; color: #3c3c3c; background: url(../images/h3b.gif) repeat-x 0 100% }
 .block h3.title .spacer { float: left; margin: 0 18px }

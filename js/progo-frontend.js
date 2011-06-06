@@ -6,55 +6,65 @@ function progo_homecycle( lnk ) {
 	if( lnk == false ) {
 		lnk = jQuery('#pagetop .ar a:last');
 	}
-	if( lnk.hasClass('off') == false ) {
-		lnk.add(lnk.siblings('a')).addClass('off');
-		clearTimeout(progo_cycle);
-		var onn = jQuery('#pagetop .slide.on');
-		var nex = onn.next();
-		var dir = '-=994px';
-		if( lnk.hasClass('n') ) {
-			if(nex.hasClass('slide') == false) {
-				nex = onn.prevAll('.slide:first-child');
+	if( ( lnk.hasClass('off') == false ) && ( lnk.hasClass('here') == false ) ) {
+		var onn, nex, slide1, slide2;
+		if( lnk.hasClass('s') ) { // specific slide clicked
+			lnk.add(lnk.siblings('a')).addClass('off');
+			clearTimeout(progo_cycle);
+			
+			onn = lnk.siblings('.here');
+			nex = lnk;
+			nex.addClass('on here');
+			onn.removeClass('on here');
+			slide1 = jQuery('#pagetop .slide:eq('+ onn.data('tar') +')');
+			slide2 = jQuery('#pagetop .slide:eq('+ nex.data('tar') +')');
+			slide2.css({'left':'1000px'});
+			
+			slide2.add(slide1).animate({
+				left: '-=994px'
+			}, 450, function() {
+				jQuery('#pagetop .ar a').removeClass('off');
+				if( progo_timing > 0 ) {
+					progo_cycle = setTimeout("progo_homecycle(false)",progo_timing);
+				}
+			});
+		} else { // arrow clicked - just click next/prev slide
+			onn = lnk.siblings('.here');
+			nex = onn.next();
+			if( lnk.hasClass('n') ) {
+				if(nex.hasClass('n')) {
+					nex = onn.prevAll('.r').next();
+				}
+			} else {
+				nex = onn.prev();
+				if(nex.hasClass('r')) {
+					nex = onn.nextAll('.n').prev();
+				}
 			}
-			nex.css({'left':'1000px'});
-		} else {
-			nex = onn.prev();
-			if(nex.size() == 0) {
-				nex = onn.nextAll('.ar').prev();
-			}
-			nex.css({'left':'-988px'});
-			dir = '+=994px';
+			nex.click();
 		}
-		onn.add(nex).animate({
-			left: dir
-		}, 450, function() {
-			jQuery(this).toggleClass('on');
-			jQuery('#pagetop .ar a').removeClass('off');
-			progo_scrollcheck();
-		});
 	}
 	return false;
-}
-
-function progo_scrollcheck() {
-	var ptop = jQuery('#pagetop');
-	var fset = ptop.offset();
-	var wscrolltop = jQuery(window).scrollTop();
-	clearTimeout(progo_cycle);
-	if( ( progo_timing > 0 ) && ( wscrolltop < fset.top ) ) {
-		progo_cycle = setTimeout("progo_homecycle(false)",progo_timing);
-		//console.log('scrollon');
-	} else {
-		//console.log('noscroll');
-	}
 }
 
 jQuery(function($) {
 	var progo_ptop = $('#pagetop');
 	if(progo_ptop.hasClass('slides')) {
-		progo_ptop.children('div.ar').children('a').click(function() { return progo_homecycle($(this)); });//.next().click(function() { return progo_homecycle(false); });
+		progo_ptop.children('div.ar').children('a').click(function() { return progo_homecycle($(this)); })
+			.filter('a.s').bind({
+				mouseover: function() {
+					$(this).addClass('on');
+				},
+				mouseleave: function() {
+					if($(this).hasClass('here') == false) {
+						$(this).removeClass('on');
+					}
+				}
+			}).each(function(i) {
+				$(this).data('tar',i);
+			});
 		progo_ptop.addClass('sliding');
-		$(window).bind('scroll.progo',progo_scrollcheck).trigger('scroll.progo');
+		progo_cycle = setTimeout("progo_homecycle(false)",progo_timing);
 	}
 	
 	$('#hdr .cartcollapse').hide().parent().parent().prev().click(function() {
@@ -67,7 +77,7 @@ jQuery(function($) {
 		$(this).removeClass('over');
 	});
 	
-	Cufon.replace('#slogan, #main h2.banner', { fontFamily: 'TitilliumText', fontWeight: '400' });
+	Cufon.replace('#slogan, #main h2.banner, #pagetop .ar a.s', { fontFamily: 'TitilliumText', fontWeight: '400' });
 	Cufon.replace('#main h2', { fontFamily: 'TitilliumText', fontWeight: '600' });
 	Cufon.replace('h3, .meter strong', { fontFamily: 'TitilliumText', fontWeight: '800' });
 	Cufon.replace('h1.page-title, #htop h1', { fontFamily: 'TitilliumText', fontWeight: '800', textShadow: '3px 3px rgba(160, 72, 0, 1.0)' });

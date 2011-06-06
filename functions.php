@@ -1495,11 +1495,8 @@ function progo_bodyclasses($classes) {
 			$classes[] = 'blog';
 			break;
 	}
-	if ( is_front_page() ) {
-		$options = get_option( 'progo_options' );
-		if( $options['frontpage'] == 'featured' ) {
-			$classes[] = 'wpsc';
-		}
+	if(is_page(120)) {
+		$classes[] = 'wpsc';
 	}
 	return $classes;
 }
@@ -1514,7 +1511,7 @@ if ( ! function_exists( 'progo_menuclasses' ) ):
 function progo_menuclasses($items) {
 	$blogID = get_option('progo_blog_id');
 	foreach ( $items as $i ) {
-		if ( $i->post_content == '[productspage]' && !is_front_page() ) {
+		if ( $i->post_content == "[wpsc_products category_id='9' ]" ) {
 			$i->classes[] = 'wpsc';
 		}
 		if ( $i->object_id == $blogID ) {

@@ -20,7 +20,7 @@ Author URI: http://www.progo.com
 #default_products_page_container .wpsc_page_numbers_top span.current,
 #default_products_page_container .wpsc_page_numbers_bottom span.current,
 #default_products_page_container .wpsc_page_numbers_bottom span.current { padding:5px 4px }
-.default_product_display { position: relative; float: left; margin: 0 0 20px }
+.default_product_display { position: relative; float: left; margin: 0 0 20px; width: 310px }
 .default_product_display .productcol { position:relative }
 .default_product_display .imagecol img.product_image { background-color:#efefef }
 .default_product_display .imagecol img.no-image,

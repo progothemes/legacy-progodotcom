@@ -53,7 +53,7 @@ for ( $i = 0; $i < $count; $i++ ) {
 			wpsc_the_product();
 			echo "<div class='slide$on product'>";
 			$post = get_post($slides[$i]['product']);
-			$ptitles[$i] = wpsc_the_product_title();
+			$ptitles[ $i .'-'. $post->ID ] = wpsc_the_product_title();
 			$excerpt = $post->post_content;
 			$excerpt = substr( $excerpt, 0, strpos( $excerpt, '<!--more-->' ) );
 			echo '<div class="desc">'. esc_html($excerpt) .'</div>';
@@ -107,7 +107,13 @@ for ( $i = 0; $i < $count; $i++ ) {
 	}
 }
 if ( $oneon == true && $count > 1 ) { ?>
-<div class="ar"><a href="#p" title="Previous Slide"></a><a href="#n" class="n" title="Next Slide"></a></div>
+<div class="ar"><a href="#p" title="Previous Slide" class="r"></a><?php
+$firston = true;
+foreach($ptitles as $k => $v ) {
+	echo '<a href="#s'. $k .'" class="s s'. $k . ($firston ? ' on here' : '') .'"><span class="on">'. $v .'</span><span class="off">'. $v .'</span></a>';
+	$firston = false;
+}
+?><a href="#n" class="r n" title="Next Slide"></a></div>
 <script type="text/javascript">
 progo_timing = <?php $hsecs = absint($options['homeseconds']); echo $hsecs > 0 ? $hsecs * 1000 : "0"; ?>;
 </script>
