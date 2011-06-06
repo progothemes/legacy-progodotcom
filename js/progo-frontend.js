@@ -76,10 +76,11 @@ jQuery(function($) {
 	}).parent().bind('mouseleave',function() {
 		$(this).removeClass('over');
 	});
-	
+	/*
 	Cufon.replace('#slogan, #main h2.banner, #pagetop .ar a.s', { fontFamily: 'TitilliumText', fontWeight: '400' });
 	Cufon.replace('#main h2', { fontFamily: 'TitilliumText', fontWeight: '600' });
 	Cufon.replace('h3, .meter strong', { fontFamily: 'TitilliumText', fontWeight: '800' });
 	Cufon.replace('h1.page-title, #htop h1', { fontFamily: 'TitilliumText', fontWeight: '800', textShadow: '3px 3px rgba(160, 72, 0, 1.0)' });
 	Cufon.now();
+	*/
 });
