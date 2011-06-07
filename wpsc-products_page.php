@@ -61,12 +61,13 @@ global $wp_query;
 		
 	
 	
-		<?php /** start the product loop here */?>
-		<?php while (wpsc_have_products()) :  wpsc_the_product(); ?>
+		<?php /** start the product loop here */
+		$wpsc_even = false;
+		while (wpsc_have_products()) :  wpsc_the_product(); ?>
 					
-			<div class="default_product_display product_view_<?php echo wpsc_the_product_id(); ?> <?php echo wpsc_category_class(); ?> group">
+			<div class="default_product_display grid_4 product_view_<?php echo wpsc_the_product_id() .' '. wpsc_category_class() .' '. ($wpsc_even ? 'omega' : 'alpha'); $wpsc_even = !$wpsc_even; ?> group">
 				<?php if(wpsc_show_thumbnails()) :?>
-					<div class="grid_4 alpha imagecol" id="imagecol_<?php echo wpsc_the_product_id(); ?>">
+					<div class="imagecol" id="imagecol_<?php echo wpsc_the_product_id(); ?>">
 						<?php if(wpsc_the_product_thumbnail()) :
 						?>
 							<a rel="<?php echo wpsc_the_product_title(); ?>" class="<?php echo wpsc_the_product_image_link_classes(); ?>" href="<?php echo wpsc_the_product_image(); ?>">
@@ -84,7 +85,7 @@ global $wp_query;
 						?>	
 					</div><!--close imagecol-->
 				<?php endif; ?>
-					<div class="productcol grid_4 omega">
+					<div class="productcol">
                 <h3 class="prodtitle entry-title"><?php if(get_option('hide_name_link') == 1) {
 					echo wpsc_the_product_title();
 				} else { ?><a class="wpsc_product_title" href="<?php echo wpsc_the_product_permalink(); ?>"><?php echo wpsc_the_product_title(); ?></a><?php
@@ -136,7 +137,7 @@ global $wp_query;
 									<?php if(wpsc_product_on_special()) : ?>
 										<div class="pricedisplay product_<?php echo wpsc_the_product_id(); ?>"><span class="oldprice" id="old_product_price_<?php echo wpsc_the_product_id(); ?>"><?php _e('Price', 'wpsc'); ?> : <?php echo wpsc_product_normal_price(); ?></span></div>
 									<?php endif; ?>
-									<div class="pricedisplay product_<?php echo wpsc_the_product_id(); ?>"><?php _e('Price', 'wpsc'); ?> : <span id='product_price_<?php echo wpsc_the_product_id(); ?>' class="currentprice pricedisplay"><?php echo wpsc_the_product_price(); ?></span></div>
+									<div class="pricedisplay product_<?php echo wpsc_the_product_id(); ?>"><?php _e('Price', 'wpsc'); ?> : <strong><span id='product_price_<?php echo wpsc_the_product_id(); ?>' class="currentprice pricedisplay"><?php echo wpsc_the_product_price(); ?></span></strong></div>
 									<?php /*if(wpsc_product_on_special()) : ?>
 										<div class="pricedisplay product_<?php echo wpsc_the_product_id(); ?>"><?php _e('You save', 'wpsc'); ?>: <span class="yousave" id="yousave_<?php echo wpsc_the_product_id(); ?>"><?php echo wpsc_currency_display(wpsc_you_save('type=amount'), array('html' => false)); ?>! (<?php echo wpsc_you_save(); ?>%)</span></div>
 									<?php endif; // who cares */ ?>

@@ -38,6 +38,7 @@ hr { background-color: #e7e7e7; border: 0; clear: both; height: 1px; margin-bott
 
 /* Text elements */
 h2 { font: 34px/35px "TitilliumText14L600wt", Arial, Helvetica, sans-serif; margin: 0 0 10px }
+h2.h48 { font-size: 48px; line-height: 48px }
 h3 { font-size: 19px; font-weight: normal }
 h4 { font-size: 16px }
 h1, h3, h4, h5, h6 { line-height: 120%; margin: 0 0 2px }
@@ -122,14 +123,14 @@ body.home #pagetop { background: url(../images/hshad.jpg) no-repeat 0 0; padding
 #pagetop .product_form { position: absolute; right: 24px; bottom: 23px }
 #pagetop .desc { position: absolute; top: 88px; right: 24px; display: block; width: 354px; font-size: 16px; line-height: 20px; color: #fff }
 .slide .meter { position: absolute; top: 196px; left: 611px }
-.meter strong { font: 18px/18px "TitilliumText14L800wt", Arial, Helvetica, sans-serif; color: #5EE2FF }
+.meter strong { font-size: 18px; color: #E2FE3F }
 .meter ul { list-style: none; margin: 5px 0 0; padding: 0; width: 267px }
 .meter li { float: left; width: 267px; padding: 0 0 2px; background: url(../images/meterd.gif) repeat-x 0 100%; font-weight: bold }
 .meter span { float: left }
 .meter span.stars { float: right }
 .meter span.stars span { width: 13px; height: 11px; background: url(../images/stars.png) no-repeat 0 0; margin: 4px 0 0 2px }
 .meter span.stars span.on { background-position: 0 -11px; text-indent:-999em }
-.meter.p52 strong { color: #E2FE3F }
+.meter.p50 strong { color: #5EE2FF }
 .meter.p52 span.stars span.on { background-position: 0 -22px }
 
 .ar { float: left; display: block; width: 965px; height: 38px; position: absolute; bottom: 2px; left: 17px }
@@ -139,8 +140,8 @@ body.home #pagetop { background: url(../images/hshad.jpg) no-repeat 0 0; padding
 .ar a.s { color: #fff; font: 16px/18px "TitilliumText14L400wt", Arial, Helvetia, sans-serif; margin: 8px 0 0 41px; text-transform: uppercase }
 .ar a.s .on, .ar a.s.on .off { display: none }
 .ar a.s:hover { text-decoration: none }
-.ar a.s.on .on { display: block; color: #5EE2FF }
-.ar a.s.s1-52 .on { color: #e2fe3f }
+.ar a.s.on .on { display: block; color: #e2fe3f }
+.ar a.s.s0 .on { color: #5EE2FF }
 
 #main { font-size: 13px }
 #main input, #main textarea { color: #333; font-size: 13px; line-height: 120% }
@@ -206,7 +207,7 @@ img.avatar { float: left; margin: 0 10px 10px 0 }
 .twoposts a.more-link { float: left; width: 101px; height: 26px; padding: 4px 0 0; color: #fff; font-weight: bold; text-align: center; background: url(../images/readmore.png) no-repeat 0 0; position: absolute; bottom: 0; right: 117px; text-decoration: none }
 .twoposts .alpha a.more-link { right: 127px }
 /* sidebars */
-#secondary { float: left; width: 100%; padding: 20px 0 0 }
+#secondary { float: left; width: 100%; padding: 20px 0 0; margin-left: 10px }
 body.wpsc #main, body.wpsc #secondary { padding-top: 10px }
 .block { float: left; width: 99%; border: 1px solid #ccc; margin: 0 0 9px }
 .block h3.title { float: left; width: 100%; padding: 8px 0; margin: 0; font-size: 19px; line-height: 23px; color: #3c3c3c; background: url(../images/h3b.gif) repeat-x 0 100% }
@@ -230,7 +231,7 @@ body.wpsc #main, body.wpsc #secondary { padding-top: 10px }
 
 body.blog .block { width: 100%; border: none; margin: 0 0 30px }
 body.blog .block h3.title { padding: 0; color: #333; background: none }
-body.blog .block h3.title .spacer { float: left; margin: 0 }
+body.blog .block h3.title .spacer { float: left; margin: 0; font-family: "TitilliumText14L600wt", Arial, Helvetica, sans-serif }
 body.blog .block .inside { width: 100%; padding-left: 0 }
 
 /* wpsc */

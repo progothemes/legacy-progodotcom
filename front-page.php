@@ -33,7 +33,7 @@ $slides = (array) get_option( 'progo_slides' );
 unset($slides['count']);
 $count = count($slides);
 $oneon = false;
-$ptitles = array();
+$stitles = array();
 
 $marketing_terms = get_option( 'progo_pmm_terms' );
 for ( $i = 0; $i < $count; $i++ ) {
@@ -43,17 +43,19 @@ for ( $i = 0; $i < $count; $i++ ) {
 		$oneon = true;
 		$on .= ' on';
 	}
-	
+	$stitles[] = $slides[$i]['title'];
 	switch($show) {
 		case 'text':
 			echo "<div class='slide$on page-title'>". wp_kses($slides[$i]['text'],array()) ."</div>";
+			break;
+		case 'image':
+			echo "<div class='slide$on image'><img src='". esc_url($slides[$i]['image']) ."' width='988' height='424' alt='". $slides[$i]['title'] ."' /></div>";
 			break;
 		case 'product':
 			$oldpost = $post;
 			wpsc_the_product();
 			echo "<div class='slide$on product'>";
 			$post = get_post($slides[$i]['product']);
-			$ptitles[ $i .'-'. $post->ID ] = wpsc_the_product_title();
 			$excerpt = $post->post_content;
 			$excerpt = substr( $excerpt, 0, strpos( $excerpt, '<!--more-->' ) );
 			echo '<div class="desc">'. esc_html($excerpt) .'</div>';
@@ -109,7 +111,7 @@ for ( $i = 0; $i < $count; $i++ ) {
 if ( $oneon == true && $count > 1 ) { ?>
 <div class="ar"><a href="#p" title="Previous Slide" class="r"></a><?php
 $firston = true;
-foreach($ptitles as $k => $v ) {
+foreach($stitles as $k => $v ) {
 	echo '<a href="#s'. $k .'" class="s s'. $k . ($firston ? ' on here' : '') .'"><span class="on">'. $v .'</span><span class="off">'. $v .'</span></a>';
 	$firston = false;
 }

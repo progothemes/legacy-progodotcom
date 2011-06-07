@@ -65,33 +65,42 @@ function progo_setup() {
 	add_filter('menu_order', 'progo_admin_menu_order');
 }
 endif;
-if ( ! function_exists( 'progo_wpsc_taxonomies' ) ):
-function progo_wpsc_taxonomies() {
-  $labels = array(
-    'name' => _x( 'Performance Marketing Meter', 'taxonomy general name' ),
-    'singular_name' => _x( 'Area', 'taxonomy singular name' ),
-    'search_items' =>  __( 'Search Areas' ),
-    'popular_items' => __( 'Popular Areas' ),
-    'all_items' => __( 'All Areas' ),
-    'parent_item' => null,
-    'parent_item_colon' => null,
-    'edit_item' => __( 'Edit Area' ), 
-    'update_item' => __( 'Update Area' ),
-    'add_new_item' => __( 'Add New Area' ),
-    'new_item_name' => __( 'New Area Name' ),
-    'separate_items_with_commas' => __( 'Separate areas with commas' ),
-    'add_or_remove_items' => __( 'Add or remove areas' ),
-    'choose_from_most_used' => __( 'Choose from the most used areas' ),
-    'menu_name' => __( 'Marketing Meter' ),
-  ); 
-
-  register_taxonomy('progo_pmm','wpsc-product',array(
-    'hierarchical' => false,
-    'labels' => $labels,
-    'show_ui' => true
-  ));
+if ( ! function_exists( 'progodotcom_init' ) ):
+function progodotcom_init() {
+	$labels = array(
+		'name' => _x( 'Performance Marketing Meter', 'taxonomy general name' ),
+		'singular_name' => _x( 'Area', 'taxonomy singular name' ),
+		'search_items' =>  __( 'Search Areas' ),
+		'popular_items' => __( 'Popular Areas' ),
+		'all_items' => __( 'All Areas' ),
+		'parent_item' => null,
+		'parent_item_colon' => null,
+		'edit_item' => __( 'Edit Area' ), 
+		'update_item' => __( 'Update Area' ),
+		'add_new_item' => __( 'Add New Area' ),
+		'new_item_name' => __( 'New Area Name' ),
+		'separate_items_with_commas' => __( 'Separate areas with commas' ),
+		'add_or_remove_items' => __( 'Add or remove areas' ),
+		'choose_from_most_used' => __( 'Choose from the most used areas' ),
+		'menu_name' => __( 'Marketing Meter' ),
+	); 
+	
+	register_taxonomy('progo_pmm','wpsc-product',array(
+		'hierarchical' => false,
+		'labels' => $labels,
+		'show_ui' => true
+	));
+  
+  
+	if(class_exists('MultiPostThumbnails')) {
+		$thumb = new MultiPostThumbnails(array(
+			'label' => 'Product Details Top Image',
+			'id' => 'pbg-image',
+			'post_type' => 'wpsc-product'
+		));
+	}
 }
-add_action( 'init', 'progo_wpsc_taxonomies', 0 );
+add_action( 'init', 'progodotcom_init', 0 );
 endif;
 
 /********* Front-End Functions *********/
@@ -572,30 +581,31 @@ if ( ! function_exists( 'progo_homeslide_start' ) ):
  * @since ProGoDotCom 1.0
  */
 function progo_homeslide_action($num, $sel, $slidedata = false) {
-	$slideproduct = $slideimg = 0;
-	$slidetext = '';
+	$slideproduct = 0;
+	$slidetext = $slideimg = $slidetitle = '';
 	if(is_array($slidedata)) {
 		if(isset($slidedata['product'])) $slideproduct = absint($slidedata['product']);
 		if(isset($slidedata['text'])) $slidetext = $slidedata['text'];
-		if(isset($slidedata['image'])) $slideimg = absint($slidedata['image']);
+		if(isset($slidedata['image'])) $slideimg = $slidedata['image'];
+		if(isset($slidedata['title'])) $slidetitle = $slidedata['title'];
 	}
 ?><div class="postbox">
 <div class="handlediv" title="Click to toggle"><br /></div><h3 class="hndle"><span>Slide <?php echo $num; ?></span></h3>
 <div class="inside">
-<p><a href="#" onclick="return progo_slideremove(jQuery(this));" style="float:right">Delete This Slide</a>Slide shows :<br /><select class="homeslideshows" name="progo_slides[<?php echo $num; ?>][show]" onchange="progo_slidefor(jQuery(this));"><option value="">- please select -</option>
+<p><a href="#" onclick="return progo_slideremove(jQuery(this));" style="float:right">Delete This Slide</a>Slide shows : <select class="homeslideshows" name="progo_slides[<?php echo $num; ?>][show]" onchange="progo_slidefor(jQuery(this));"><option value="">- please select -</option>
 <?php
 $slidetypes = array(
 	"product" => "Product",
-	"text" => "Text Area"/*,
-	"image" => "Image Banner"*/
+	"text" => "Text Area",
+	"image" => "Image Banner"
 );
 foreach ( $slidetypes as $k => $v ) {
 	$s = $sel == $k ? " selected='selected'" : "";
 	echo "<option value='$k'$s>$v</option>";
 }
-?></select></p>
-<p class="product" style="<?php if($sel!='product') echo 'display:none'; ?>">Select a Product for this Slide<br />
-<select name="progo_slides[<?php echo $num; ?>][product]">
+?></select> &nbsp; &nbsp; 
+Slide Title : <input type="text" name="progo_slides[<?php echo $num; ?>][title]" value="<?php echo esc_attr($slidetitle); ?>" size="20" /> (shown below slider area)</p>
+<p class="product" style="<?php if($sel!='product') echo 'display:none'; ?>">Which Product? <select name="progo_slides[<?php echo $num; ?>][product]">
 <?php
 $prods = get_posts(array('numberposts' => -1, 'post_type' => 'wpsc-product'));
 foreach ( $prods as $p ) {
@@ -604,10 +614,8 @@ foreach ( $prods as $p ) {
 }
 ?>
 </select></p>
-<p class="text" style="<?php if($sel!='text') echo 'display:none'; ?>">Text to Display<br />
-<textarea name="progo_slides[<?php echo $num; ?>][text]" rows="3" style="width: 100%"><?php echo esc_attr($slidetext); ?></textarea></p>
-<p class="image" style="<?php if($sel!='image') echo 'display:none'; ?>">Choose an Image to display on this Slide. Images should be 960px width.<br />
-<input type="hidden" name="progo_slides[<?php echo $num; ?>][image]" /></p>
+<p class="text" style="<?php if($sel!='text') echo 'display:none'; ?>">Text to Display :<br /><textarea name="progo_slides[<?php echo $num; ?>][text]" rows="3" style="width: 100%"><?php echo esc_attr($slidetext); ?></textarea></p>
+<p class="image" style="<?php if($sel!='image') echo 'display:none'; ?>">Image URL : <input type="text" name="progo_slides[<?php echo $num; ?>][image]" value="<?php echo esc_url($slideimg); ?>" size="40" /> (Images should be 988 x 424)</p>
 </div>
 </div>
 <?php
@@ -1243,9 +1251,10 @@ function progo_validate_homeslides( $input ) {
 	foreach ( $input as $slide ) {
 		$newslide = array();
 		$newslide['show'] = $slide['show'];
+		$newslide['title'] = isset($slide['title']) ? wp_kses($slide['title'], array()) : '';
 		$newslide['product'] = isset($slide['product']) ? absint($slide['product']) : 0;
 		$newslide['text'] = isset($slide['text']) ? wp_kses($slide['text'], array()) : '';
-		$newslide['image'] = isset($slide['image']) ? absint($slide['image']) : 0;
+		$newslide['image'] = isset($slide['image']) ? esc_url($slide['image']) : '';
 		$newslides[] = $newslide;
 		$count++;
 	}
@@ -1253,9 +1262,10 @@ function progo_validate_homeslides( $input ) {
 	for ( $i = $count; $i < $counto; $i++ ) {
 		$newslides[] = array(
 			'show' => '',
+			'title' => '',
 			'product' => 0,
 			'text' => '',
-			'image' => 0
+			'image' => ''
 		);
 	}
 	$newslides['count'] = $counto;

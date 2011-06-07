@@ -14,20 +14,27 @@
 
 get_header();
 ?>
-<?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
+<?php if ( have_posts() ) while ( have_posts() ) : the_post();
+if(is_singular('wpsc-product')) { ?>
+<div id="container" class="container_12"><!-- progotemplate: page.php wpsc-product -->
+<div id="main" role="main" class="grid_12">
+<?php } else { ?>
 <div id="pagetop">
 <h1 class="page-title"><?php the_title(); ?></h1>
 <?php do_action('progo_pagetop'); ?>
 </div>
-<div id="container" class="container_12">
+<div id="container" class="container_12"><!-- progotemplate: page.php -->
 <div id="main" role="main" class="grid_8">
+<?php } ?>
 <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 <div class="entry">
 <?php the_content(); ?>
 </div><!-- .entry -->
 </div><!-- #post-## -->
 </div><!-- #main -->
-<?php endwhile; ?>
-<?php get_sidebar(); ?>
+<?php endwhile;
+if(is_singular('wpsc-product') == false) {
+get_sidebar();
+} ?>
 </div><!-- #container -->
 <?php get_footer(); ?>

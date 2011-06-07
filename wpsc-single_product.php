@@ -26,7 +26,19 @@
 		 * This is single products view, so there should be only one
 		 */
 
-		while ( wpsc_have_products() ) : wpsc_the_product(); ?>
+		while ( wpsc_have_products() ) : wpsc_the_product();
+		
+		global $post;
+		$content = $post->post_content;
+		$moreat = strpos( $content, '<!--more-->' );
+		$contentprev = substr( $content, 0, $moreat );
+		$moredetails = substr( $content, $moreat );
+		
+		$custombg = '';
+		if ( class_exists('MultiPostThumbnails') && MultiPostThumbnails::has_post_thumbnail('wpsc-product', 'pbg-image', wpsc_the_product_id()) ) {
+			$custombg = MultiPostThumbnails::get_post_thumbnail_id('wpsc-product', 'pbg-image', wpsc_the_product_id() );
+		}
+		if($custombg == '') { ?>
 					<div class="imagecol grid_4 alpha">
 						<?php if ( wpsc_the_product_thumbnail() ) : ?>
 								<a rel="<?php echo wpsc_the_product_title(); ?>" class="<?php echo wpsc_the_product_image_link_classes(); ?>" href="<?php echo wpsc_the_product_image(); ?>">
@@ -47,7 +59,9 @@
                 <h3 class="prodtitle entry-title"><?php echo wpsc_the_product_title(); ?></h3>
 						<?php do_action('wpsc_product_before_description', wpsc_the_product_id(), $wp_query->post); ?>
 						<div class="wpsc_description">
-							<?php progo_summary( false ); ?>
+							<?php 
+						echo $contentprev;
+						?>
 						</div><!--close product_description -->
 						<?php do_action( 'wpsc_product_addons', wpsc_the_product_id() ); ?>
 						<?php
@@ -191,16 +205,15 @@
 						<input type="hidden" value="<?php echo wpsc_the_product_id(); ?>" name="prodid"/>
 						<input type="hidden" value="<?php echo wpsc_the_product_id(); ?>" name="item"/>
 					</form>
-                    	<div class="moredetails"><h4>More Details</h4>
-						<div class="product_description">
-							<?php echo wpsc_the_product_description(); ?>
-						</div><!--close product_description -->	
-						<?php if ( wpsc_the_product_additional_description() ) : ?>
-							<div class="single_additional_description">
-								<p><?php echo wpsc_the_product_additional_description(); ?></p>
-							</div><!--close single_additional_description-->
-						<?php endif; ?>		
-						<?php do_action( 'wpsc_product_addon_after_descr', wpsc_the_product_id() ); ?>
+                    <?php } else {
+						$custombg = wp_get_attachment_image_src($custombg, 'pbg');
+						?><div id="ptop" style="background-image:url(<?php echo $custombg[0]; ?>)">
+						</div>
+					<?php } ?>
+                    	<div class="moredetails">
+                        <?php
+						echo do_shortcode( wpautop( $moredetails,1 ) );
+						do_action( 'wpsc_product_addon_after_descr', wpsc_the_product_id() ); ?>
 						</div>
 		</div><!--close single_product_display-->
 <?php endwhile;

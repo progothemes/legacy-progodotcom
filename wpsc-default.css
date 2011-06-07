@@ -7,8 +7,7 @@ Author: ProGo Themes
 Author URI: http://www.progo.com
 */
 /*-----GENERAL-----*/
-.imagecol img { float: right; width: 290px; height: 290px; margin: 0; -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
- }
+.imagecol img { margin: 0; -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); box-shadow: 0 0 5px rgba(0, 0, 0, 0.3) }
 .wpsc_hidden{ display:none }
 /*-----DEFAULT PRODUCT DISPLAY-----*/
 #default_products_page_container { width:100%; position:relative; line-height:1.2em }
@@ -21,13 +20,14 @@ Author URI: http://www.progo.com
 #default_products_page_container .wpsc_page_numbers_top span.current,
 #default_products_page_container .wpsc_page_numbers_bottom span.current,
 #default_products_page_container .wpsc_page_numbers_bottom span.current { padding:5px 4px }
-.default_product_display { position: relative; float: left; margin: 0 0 20px; width: 310px }
+.default_product_display { position: relative; float: left; margin-bottom: 20px }
 .default_product_display .productcol { position:relative }
 .default_product_display .imagecol img.product_image { background-color:#efefef }
 .default_product_display .imagecol img.no-image,
 #main .default_product_display .imagecol img.no-image { background-color:#EFEFEF; display:block }
 .default_product_display h2.prodtitle,
 #main .default_product_display h2.prodtitle { margin:0 0 5px 0; line-height:1; clear:none }
+h3.prodtitle { font-size: 16px; font-weight: bold }
 .prodtitle a { color: #333 }
 .default_product_display span.sale { position:absolute; top:-10px; left:-10px; text-indent:-9999px; display:block }
 .default_product_display .additional_description_container { margin:20px 0 }
@@ -81,7 +81,7 @@ table.list_productdisplay form.product_form { display:inline }
 table.list_productdisplay .quantity_container { display:inline }
 #main input.wpsc_buy_button, .slide input.wpsc_buy_button, .slide a.morebutton, a.gocheckout, #main input.btn { float: left; font-size: 16px; border: none; width: 132px; height: 29px; cursor:pointer; background: url(images/BlackGrey/btn_buy.png) no-repeat 0 0; color: #fff; text-transform: uppercase }
 a.gocheckout { text-align: center; line-height:19px; height: 19px; padding: 5px 0 }
-.slide input.wpsc_buy_button, .slide a.morebutton { width: 198px; height: 40px; color: #000; font-size: 18px; background: url(images/BlackGrey/btn_buyslide.png) no-repeat 0 0; font-weight: bold }
+.slide input.wpsc_buy_button, .slide a.morebutton { width: 220px; height: 41px; color: #000; font-size: 16px; background: url(images/btn_buyslide.png) no-repeat 0 0; font-weight: bold; text-shadow: 1px 1px 2px #fff }
 .slide a.morebutton { line-height:24px; height: 24px; padding: 8px 0; text-align: center }
 #main input.btn { color: #333; background-image: url(images/btn.png); float: right }
 #main input.nobtn { border: none; padding: 0; width: auto; height: auto; background: none; color: #666; font-size: 13px }
@@ -212,3 +212,7 @@ body.wpsc-shopping-cart div.req { margin: 30px 8px 20px; width: 100% }
 .featured_item_image a img { float:right; width:80% }
 .wpsc_container.wpsc_featured{ margin-top: 20px; margin-bottom: 20px }
 .featured_product_price{ font-style: oblique; margin-bottom: 10px }
+/*-----custom BGs for Product Details pages-----*/
+body.postid-50 { background-image: url(images/products/bg-50.png) }
+body.postid-50 #fx { background-image: url(images/products/fx-50.jpg) }
+#ptop { float: left; width: 724px; height: 436px; position: relative; background: no-repeat 0 0; margin: -10px 0 0 -24px }
