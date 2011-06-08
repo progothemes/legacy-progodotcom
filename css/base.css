@@ -80,14 +80,14 @@ a:hover, a.more-link, body.blog .entry-utility a { text-decoration: underline }
 #logo { float: left; margin: 9px 15px 0 0; width: 150px; height: 80px; text-indent: -999em; background: url(../images/logo_progo.png) no-repeat 0 0 }
 #slogan { float: left; margin: 44px 0 0; font: 16px/18px "TitilliumText14L400wt", Arial, Helvetica, sans-serif; color: #515151 }
 ul#nav { float:left; margin: 0; padding: 0 1px 0 0; list-style: none; position: absolute; bottom: 0; right: -14px; background: url(../images/navli.png) no-repeat 100% 100%; z-index: 5 }
-ul#nav li { float: left; padding: 5px 0 0 1px; background: url(../images/navli.png) no-repeat 0 100% }
+ul#nav li { float: left; padding: 5px 0 0 1px; background: url(../images/navli.png) no-repeat 0 100%; position: relative }
 ul#nav li a { float: left; height: 27px; color: #4b4b4b; font-size: 13px; padding: 24px 23px 6px; font-weight: bold }
-ul#nav li div.sub { display: none; position: absolute; top: 62px; right: -3px; width; 137px; padding: 0 0 15px; float: left; background: url(../images/nave.png) no-repeat 0 100% }
+ul#nav li div.sub { display: none; position: absolute; top: 62px; right: -4px; width; 137px; padding: 0 0 15px; float: left; background: url(../images/nave.png) no-repeat 0 100% }
 ul#nav li.over div.sub { display: block }
 ul#nav ul { float: left; list-style: none; margin: 0; padding: 10px 14px; width: 109px; background: url(../images/navd.png) repeat-y 0 0 }
 ul#nav li li { background: none; float: none; padding: 0; margin-bottom: 1px }
 ul#nav li li a { float:none; height: auto; padding: 0; color: #000; font-weight: normal }
-ul#nav li.current-menu-item a, body.wpsc ul#nav li.wpsc a, body.blog ul#nav li.blog a, ul#nav li a:hover, ul#nav li.over a.flink { background: url(../images/navon.png) repeat-x 0 100%; font-weight: bold; text-decoration: none; color: #000 }
+ul#nav li.current-menu-item a, body.wpsc ul#nav li.wpsc a.flink, body.blog ul#nav li.blog a, ul#nav li a:hover, ul#nav li.over a.flink { background: url(../images/navon.png) repeat-x 0 100%; font-weight: bold; text-decoration: none; color: #000 }
 ul#nav li.current-menu-item li a, ul#nav li li a:hover { background: none; font-weight: normal }
 ul#nav li li a:hover { text-decoration: underline }
 ul#nav li li.current-menu-item a { background: none; text-decoration: underline; font-weight: normal }
@@ -122,7 +122,8 @@ body.home #pagetop { background: url(../images/hshad.jpg) no-repeat 0 0; padding
 #pagetop.sliding .slide { display: block; position: absolute; top: 6px; left: 1000px }
 #pagetop.sliding .slide.on { left: 6px }
 #pagetop .slide a.product_image { float: left; width: 290px; height: 290px; padding: 7px 21px 8px 19px; margin: 13px 0 12px; background:url(../images/prodimg.png) no-repeat 0 0 }
-#pagetop .product_form { position: absolute; right: 24px; bottom: 23px }
+#pagetop a.morebutton { position: absolute; right: 24px; bottom: 23px }
+#pagetop a.morebutton:hover { text-decoration:none }
 #pagetop .desc { position: absolute; top: 88px; right: 24px; display: block; width: 354px; font-size: 16px; line-height: 20px; color: #fff }
 .meter { position: absolute; top: 217px; left: 43px }
 .slide .meter { top: 196px; left: 611px }
@@ -201,7 +202,7 @@ img.avatar { float: left; margin: 0 10px 10px 0 }
 #main .attachment img { /* single attachment images should be centered */ display: block; margin: 0 auto }
 #main img.fullwidth { margin: 0 -24px }
 
-#main h2.banner { margin: -36px -42px 11px; width: 960px; height: 141px; text-align: center; color: #fff; padding: 40px 32px 0; background:url(../images/banner.png) no-repeat 0 0; font: 49px/45px "TitilliumText14L400wt", Arial, Helvetica, sans-serif; }
+#main h2.banner { position: relative; margin: -32px -42px 11px; width: 960px; height: 141px; text-align: center; color: #fff; padding: 40px 32px 0; background:url(../images/banner.png) no-repeat 0 0; font: 49px/45px "TitilliumText14L400wt", Arial, Helvetica, sans-serif; }
 .twoposts .post { position: relative }
 .twoposts img.thm { float: left; margin-right: 12px }
 .twoposts .alpha img.thm { margin-left: -10px; position: relative }
@@ -245,7 +246,7 @@ body.single-wpsc-product .container_12 .single_product_display.group .grid_4 { d
 
 /* footer */
 /* optional callout */
-#main .theend { float: left; width: 947px; background: url(../images/theend.jpg) no-repeat 0 100%; margin: 30px 0 -35px -24px; padding: 0 0 0 41px; color: #fff; font-weight: bold }
+#main .theend { float: left; width: 947px; background: url(../images/theend.jpg) no-repeat 0 100%; margin: 30px 0 -35px -24px; padding: 0 0 0 41px; color: #fff; font-weight: bold; position: relative }
 #main .theend img.alignright { margin: 0 }
 #main .theend h2 { font-size: 40px; line-height: 45px; letter-spacing: -0.03em }
 #main .theend p { margin-bottom: 26px }
@@ -263,6 +264,7 @@ body.single-wpsc-product .container_12 .single_product_display.group .grid_4 { d
 #ftr, #ftr a { color: #333 }
 #ftr ul { float: left; margin: 0; padding: 0; list-style: none }
 #ftr ul li { float: left; margin: 0; padding: 0; list-style: none }
+#ftr ul.menu li { margin-right: 12px }
 #ftr .grid_8 { position: relative; left: 15px }
 #ftr .right { text-align: right; margin-top: 5px }
 #ftr .right img { float: right; margin: -5px 7px 0 5px }

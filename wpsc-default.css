@@ -82,7 +82,8 @@ table.list_productdisplay .quantity_container { display:inline }
 #main input.wpsc_buy_button, .slide input.wpsc_buy_button, .slide a.morebutton, a.gocheckout, #main input.btn { float: left; font-size: 16px; border: none; width: 132px; height: 29px; cursor:pointer; background: url(images/BlackGrey/btn_buy.png) no-repeat 0 0; color: #fff; text-transform: uppercase }
 a.gocheckout { text-align: center; line-height:19px; height: 19px; padding: 5px 0 }
 .slide input.wpsc_buy_button, .slide a.morebutton { width: 220px; height: 41px; color: #000; font-size: 16px; background: url(images/btn_buyslide.png) no-repeat 0 0; font-weight: bold; text-shadow: 1px 1px 2px #fff }
-.slide a.morebutton { line-height:24px; height: 24px; padding: 8px 0; text-align: center }
+.slide a.morebutton { line-height:24px; height: 24px; padding: 8px 0 9px; text-align: center }
+.slide.s0 a.morebutton { background-position: 0 -41px }
 #main input.btn { color: #333; background-image: url(images/btn.png); float: right }
 #main input.nobtn { border: none; padding: 0; width: auto; height: auto; background: none; color: #666; font-size: 13px }
 table.list_productdisplay .wpsc_buy_button_container { display:inline; position:relative }
@@ -231,4 +232,7 @@ body.postid-50 #fx { background-image: url(images/products/fx-50.jpg) }
 .pform select.current_country { width: 121px }
 .pform select.current_region { margin-right: 18px }
 .pform table.wpsc_checkout_table td.cred { padding: 0 }
-#main .pform input.buynow { border: none; width: 216px; height: 68px; background:url(images/buynow.png) no-repeat 0 0; font-size: 23px; font-family: "TitilliumText14L800wt", Arial, Helvetica, sans-serif; color: #fff; text-shadow: -2px -2px 2px rgba(0,0,0,0.30) }
+#main .pform input.buynow, #main .theend a.buynow { display: block; border: none; width: 216px; height: 68px; background:url(images/buynow.png) no-repeat 0 0; font-size: 23px; font-family: "TitilliumText14L800wt", Arial, Helvetica, sans-serif; color: #fff; text-shadow: -2px -2px 2px rgba(0,0,0,0.30); cursor: pointer }
+#main .theend a.buynow { text-align: center; padding: 25px 0 0; height: 43px; text-transform: uppercase }
+#main .theend a.buynow:hover { text-decoration: none }
+#main .theend .pprice { position: absolute; bottom: 63px; left: 274px; margin: 0; height: auto; font-weight: normal }

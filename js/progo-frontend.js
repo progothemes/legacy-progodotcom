@@ -37,51 +37,6 @@ function relative_time(time_value) {
   }
 }
 
-function progo_homecycle( lnk ) {
-	if( lnk == false ) {
-		lnk = jQuery('#pagetop .ar a:last');
-	}
-	if( ( lnk.hasClass('off') == false ) && ( lnk.hasClass('here') == false ) ) {
-		var onn, nex, slide1, slide2;
-		if( lnk.hasClass('s') ) { // specific slide clicked
-			lnk.add(lnk.siblings('a')).addClass('off');
-			clearTimeout(progo_cycle);
-			
-			onn = lnk.siblings('.here');
-			nex = lnk;
-			nex.addClass('on here');
-			onn.removeClass('on here');
-			slide1 = jQuery('#pagetop .slide:eq('+ onn.data('tar') +')');
-			slide2 = jQuery('#pagetop .slide:eq('+ nex.data('tar') +')');
-			slide2.css({'left':'1000px'});
-			
-			slide2.add(slide1).animate({
-				left: '-=994px'
-			}, 450, function() {
-				jQuery('#pagetop .ar a').removeClass('off');
-				if( progo_timing > 0 ) {
-					progo_cycle = setTimeout("progo_homecycle(false)",progo_timing);
-				}
-			});
-		} else { // arrow clicked - just click next/prev slide
-			onn = lnk.siblings('.here');
-			nex = onn.next();
-			if( lnk.hasClass('n') ) {
-				if(nex.hasClass('n')) {
-					nex = onn.prevAll('.r').next();
-				}
-			} else {
-				nex = onn.prev();
-				if(nex.hasClass('r')) {
-					nex = onn.nextAll('.n').prev();
-				}
-			}
-			nex.click();
-		}
-	}
-	return false;
-}
-
 function progo_set_shipping_country(html_form_id, form_id){
 	var shipping_region = '';
 	country = jQuery(("div#"+html_form_id+" select[class=current_country]")).val();
@@ -159,6 +114,52 @@ function progo_selectcheck( id, disabled ) {
 	if( countrysel.children().size() < 2 ) {
 		countrysel.hide().parent().prev().prev().hide();
 	}
+}
+
+function progo_homecycle( lnk ) {
+	if( lnk == false ) {
+		lnk = jQuery('#pagetop .ar a:last');
+	}
+	if( ( lnk.hasClass('off') == false ) && ( lnk.hasClass('here') == false ) ) {
+		var onn, nex, slide1, slide2;
+		if( lnk.hasClass('s') ) { // specific slide clicked
+			lnk.add(lnk.siblings('a')).addClass('off');
+			
+			onn = lnk.siblings('.here');
+			nex = lnk;
+			nex.addClass('on here');
+			onn.removeClass('on here');
+			slide1 = jQuery('#pagetop .slide:eq('+ onn.data('tar') +')');
+			slide2 = jQuery('#pagetop .slide:eq('+ nex.data('tar') +')');
+			slide2.css({'left':'1000px'});
+			
+			slide2.add(slide1).animate({
+				left: '-=994px'
+			}, 450, function() {
+				jQuery('#pagetop .ar a').removeClass('off');
+				if( progo_timing > 0 ) {
+					clearTimeout(progo_cycle);
+					clearTimeout("progo_cycle");
+					progo_cycle = setTimeout("progo_homecycle(false)",progo_timing);
+				}
+			});
+		} else { // arrow clicked - just click next/prev slide
+			onn = lnk.siblings('.here');
+			nex = onn.next();
+			if( lnk.hasClass('n') ) {
+				if(nex.hasClass('n')) {
+					nex = onn.prevAll('.r').next();
+				}
+			} else {
+				nex = onn.prev();
+				if(nex.hasClass('r')) {
+					nex = onn.nextAll('.n').prev();
+				}
+			}
+			progo_homecycle(nex);
+		}
+	}
+	return false;
 }
 
 jQuery(function($) {

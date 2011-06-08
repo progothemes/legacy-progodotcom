@@ -450,10 +450,16 @@ function progo_theend( $atts, $content ) {
 	if(strpos($content,'</p>') === 0) $content = substr($content,4);
 	$strlen = strlen($content) - 3;
 	if(strrpos($content,'<p>') == $strlen ) $content = substr($content, 0, $strlen);
-	return '<div class="theend">'. $content .'</div>';
+	return '<div class="theend">'. do_shortcode($content) .'</div>';
 }
 endif;
 add_shortcode( 'progoend', 'progo_theend' );
+if ( ! function_exists('progo_pprice_shortcode') ):
+function progo_pprice_shortcode( $atts ) {
+	return '<div class="pprice"><strong>'. progo_price(wpsc_the_product_id()) .'</strong></div>';
+}
+endif;
+add_shortcode( 'pprice', 'progo_pprice_shortcode' );
 /********* Back-End Functions *********/
 if ( ! function_exists( 'progo_admin_menu_cleanup' ) ):
 /**
