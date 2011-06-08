@@ -82,6 +82,85 @@ function progo_homecycle( lnk ) {
 	return false;
 }
 
+function progo_set_shipping_country(html_form_id, form_id){
+	var shipping_region = '';
+	country = jQuery(("div#"+html_form_id+" select[class=current_country]")).val();
+
+	if(country == 'undefined'){
+		country =  jQuery("select[title='billingcountry']").val();
+	}
+
+	region = jQuery(("div#"+html_form_id+" select[class=current_region]")).val();
+	if(/[\d]{1,}/.test(region)) {
+		shipping_region = "&shipping_region="+region;
+	}
+
+	form_values = {
+		wpsc_ajax_action: "change_tax",
+		form_id: form_id,
+		shipping_country: country,
+		shipping_region: region
+	}
+	
+	jQuery.post( 'index.php', form_values, function(returned_data) {
+		eval(returned_data);
+		jQuery('.statelabel').each(function() {
+			jQuery(this).hide();
+			if(jQuery(this).next().html() != '') {
+				//jQuery(this).show();//.parents().show();
+				if(jQuery(this).parent().next().hasClass('zip')) {
+					 jQuery(this).next().children().css('width','70px');
+				}
+			}
+		});
+	});
+	
+}
+
+function progo_set_billing_country(html_form_id, form_id){
+	var billing_region = '';
+	country = jQuery(("div#"+html_form_id+" select[class=current_country]")).val();
+	region = jQuery(("div#"+html_form_id+" select[class=current_region]")).val();
+	if(/[\d]{1,}/.test(region)) {
+		billing_region = "&billing_region="+region;
+	}
+
+	form_values = "wpsc_ajax_action=change_tax&form_id="+form_id+"&billing_country="+country+billing_region;
+	jQuery.post( 'index.php', form_values, function(returned_data) {
+		eval(returned_data);
+		jQuery('.statelabel').each(function() {
+			jQuery(this).hide();
+			if(jQuery(this).next().html() != '') {
+				//jQuery(this).show();//.parents().show();
+				if(jQuery(this).parent().next().hasClass('zip')) {
+					 jQuery(this).next().children().css('width','70px');
+				}
+			}
+		});
+	});
+}
+
+function progo_selectcheck( id, disabled ) {
+//	console.log('progo_selectcheck : ' + id + ', '+ disabled==true? 'true' : 'false');
+	var wpsc_checkout_table = jQuery('#region_select_'+ id).parents('.wpsc_checkout_table');
+	
+	if(disabled == true ) {
+		wpsc_checkout_table.find('input.billing_region').attr('disabled', 'disabled');
+		wpsc_checkout_table.find('input.shipping_region').attr('disabled', 'disabled');
+		wpsc_checkout_table.find('.billing_region').parent().hide();
+		wpsc_checkout_table.find('.shipping_region').parent().hide();
+	} else {
+		wpsc_checkout_table.find('input.billing_region').removeAttr('disabled');
+		wpsc_checkout_table.find('input.shipping_region').removeAttr('disabled');
+		wpsc_checkout_table.find('.billing_region').parent().show();
+		wpsc_checkout_table.find('.shipping_region').parent().show();
+	}
+	var countrysel = jQuery('#wpsc_checkout_form_'+id);
+	if( countrysel.children().size() < 2 ) {
+		countrysel.hide().parent().prev().prev().hide();
+	}
+}
+
 jQuery(function($) {
 	var progo_ptop = $('#pagetop');
 	if(progo_ptop.hasClass('slides')) {

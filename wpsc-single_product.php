@@ -210,8 +210,19 @@
 						?><div class="grid_9 ptop" style="background-image:url(<?php echo $custombg[0]; ?>)">
                         <div class="tdetails"><?php echo wpautop($contentprev,1); ?></div>
                         <?php progodotcom_performance_meter(wpsc_the_product_id()); ?>
-						</div><div class="grid_3 pform">
-                        <div class="pprice">DOWNLOAD &amp; INSTALL TODAY<strong><span>$</span>349<u>00</u></strong></div>
+						</div><div class="grid_3 pform"><a name="top"></a>
+                        <div class="pprice">DOWNLOAD &amp; INSTALL TODAY<strong><?php echo progo_price(wpsc_the_product_id()); ?></strong></div>
+                        <form class="direct" enctype="multipart/form-data" action="<?php echo get_permalink($post->ID) .'?progo_action=step2'; ?>" method="post" name="product_<?php echo wpsc_the_product_id(); ?>" id="product_<?php echo wpsc_the_product_id(); ?>">
+                        <table width="96%" cellpadding="0" cellspacing="0" class="wpsc_checkout_table">
+                        <tr><td><input type="hidden" name="wpsc_ajax_action" value="add_to_cart" />
+                        <input type="hidden" name="product_id" value="<?php echo wpsc_the_product_id(); ?>" />
+                        <?php progo_direct_form_fields();?>
+                        </td></tr>
+                        <tr><td class="cred" height="31"><?php $options = get_option( 'progo_options' ); echo $options['credentials']; ?></td></tr>
+                        <tr><td height="63"><?php echo progo_direct_submitbtn( wpsc_the_product_id(), 'BUY NOW' ); ?></td></tr>
+                        </table>
+                        </form>
+                        
                         </div>
 					<?php } ?>
                     	<div class="moredetails">

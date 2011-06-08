@@ -220,7 +220,15 @@ body.postid-50 #fx { background-image: url(images/products/fx-50.jpg) }
 #tar { width: 776px; height: 113px; position: absolute; top: 422px; left: -24px; background: url(images/themar.png) no-repeat 0 0; z-index: 2 }
 #tar span, .pprice { display: block; margin: 38px 0 0 47px; font: 36px/36px "TitilliumText14L400wt", Arial, Helvetica, sans-serif; color: #fff; text-transform: uppercase; text-shadow: -2px -2px 2px rgba(0,0,0,0.65); letter-spacing: 0.02em }
 .pform { margin: -10px -24px 0 0; padding: 0 22px; height: 520px; background: url(images/pform.jpg) no-repeat 0 0; text-align: center; position: relative; z-index: 1 }
-.pprice { margin: 16px 0 0; font-size: 16px; line-height: 18px; text-shadow: 2px 2px 2px rgba(0,0,0,0.65); }
+.pprice { margin: 16px 0 0; height:75px; font-size: 16px; line-height: 18px; text-shadow: 2px 2px 2px rgba(0,0,0,0.65); }
 .pprice strong { display: block; font-weight: normal; font-size: 55px; font-family: "Museo500", Arial, Helvetica, sans-serif; margin-top: 21px }
 .pprice strong span, .pprice strong u { font-size: 28px; position: relative; top: -21px; left: -3px }
 .pprice strong u { font-size: 18px; left: 6px; top: -24px }
+.pform table.wpsc_checkout_table label { display: none }
+.pform .wpsc_checkout_table input.text { width: 202px; padding: 2px 3px 5px; margin-top: 12px }
+.pform table div { float: right }
+.pform table select { float: right; margin: 12px 4px 0 0; height: 25px }
+.pform select.current_country { width: 121px }
+.pform select.current_region { margin-right: 18px }
+.pform table.wpsc_checkout_table td.cred { padding: 0 }
+#main .pform input.buynow { border: none; width: 216px; height: 68px; background:url(images/buynow.png) no-repeat 0 0; font-size: 23px; font-family: "TitilliumText14L800wt", Arial, Helvetica, sans-serif; color: #fff; text-shadow: -2px -2px 2px rgba(0,0,0,0.30) }
