@@ -51,8 +51,6 @@ ul ul, ol ol, ul ol, ol ul { margin-bottom: 0 }
 dl { margin: 0 0 24px 0 }
 dt { font-weight: bold }
 dd { margin-bottom: 18px }
-strong { font-weight: bold }
-cite, em, i { font-style: italic }
 big { font-size: 131.25% }
 ins { background: #ffc; text-decoration: none }
 blockquote { font-style: italic; padding: 0 3em }

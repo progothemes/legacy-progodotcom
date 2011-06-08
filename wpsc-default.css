@@ -215,7 +215,12 @@ body.wpsc-shopping-cart div.req { margin: 30px 8px 20px; width: 100% }
 /*-----custom BGs for Product Details pages-----*/
 body.postid-50 { background-image: url(images/products/bg-50.png) }
 body.postid-50 #fx { background-image: url(images/products/fx-50.jpg) }
-#ptop { float: left; width: 724px; height: 504px; position: relative; background: no-repeat 0 0; margin: -10px 0 0 -24px; color: #fff }
-#ptop .tdetails { position: absolute; top: 85px; left: 44px; font-size: 15px; font-weight: bold; line-height: 22px; width: 341px }
-#tar { width: 776px; height: 113px; position: absolute; top: 422px; left: -24px; background: url(images/themar.png) no-repeat 0 0 }
-#tar span { display: block; margin: 38px 0 0 47px; font: 36px/36px "TitilliumText14L400wt", Arial, Helvetica, sans-serif; color: #fff; text-transform: uppercase; text-shadow: -2px -2px 2px rgba(0,0,0,0.65); letter-spacing: 0.02em }
+.ptop { padding: 0 24px 0 0; height: 504px; position: relative; background: no-repeat 0 0; margin: -10px 0 0 -24px; color: #fff }
+.ptop .tdetails { position: absolute; top: 85px; left: 44px; font-size: 15px; font-weight: bold; line-height: 22px; width: 341px }
+#tar { width: 776px; height: 113px; position: absolute; top: 422px; left: -24px; background: url(images/themar.png) no-repeat 0 0; z-index: 2 }
+#tar span, .pprice { display: block; margin: 38px 0 0 47px; font: 36px/36px "TitilliumText14L400wt", Arial, Helvetica, sans-serif; color: #fff; text-transform: uppercase; text-shadow: -2px -2px 2px rgba(0,0,0,0.65); letter-spacing: 0.02em }
+.pform { margin: -10px -24px 0 0; padding: 0 22px; height: 520px; background: url(images/pform.jpg) no-repeat 0 0; text-align: center; position: relative; z-index: 1 }
+.pprice { margin: 16px 0 0; font-size: 16px; line-height: 18px; text-shadow: 2px 2px 2px rgba(0,0,0,0.65); }
+.pprice strong { display: block; font-weight: normal; font-size: 55px; font-family: "Museo500", Arial, Helvetica, sans-serif; margin-top: 21px }
+.pprice strong span, .pprice strong u { font-size: 28px; position: relative; top: -21px; left: -3px }
+.pprice strong u { font-size: 18px; left: 6px; top: -24px }
