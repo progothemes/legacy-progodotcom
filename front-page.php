@@ -4,20 +4,6 @@
  * @subpackage ProGoDotCom
  * @since ProGoDotCom 1.0
  */
- if(!is_user_logged_in()) { ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>ProGo | Coming Soon</title>
-<style type="text/css">
-body { margin: 0; padding: 0; min-width: 960px; background: #ec7d1b url(/soon.jpg) no-repeat 50% 0; min-height: 480px }
-</style>
-</head>
-
-<body>
-</body>
-</html><?php } else {
 get_header();
 global $wp_query, $post;
 $options = get_option( 'progo_options' );
@@ -35,7 +21,6 @@ $count = count($slides);
 $oneon = false;
 $stitles = array();
 
-$marketing_terms = get_option( 'progo_pmm_terms' );
 for ( $i = 0; $i < $count; $i++ ) {
 	$show = $slides[$i]['show'];
 	$on = ' s'. $i;
@@ -59,29 +44,7 @@ for ( $i = 0; $i < $count; $i++ ) {
 			$excerpt = $post->post_content;
 			$excerpt = substr( $excerpt, 0, strpos( $excerpt, '<!--more-->' ) );
 			echo '<div class="desc">'. esc_html($excerpt) .'</div>';
-			
-			$custom = get_post_meta($post->ID,'_progo_pmm');
-			$pmm_ratings = $custom[0];
-			if(is_array($pmm_ratings)) {
-				unset($pmm_ratings['arrowd']);
-				echo '<div class="meter p'. $post->ID .'"><strong>Performance Marketing Meter</strong><ul>';
-				$c = 0;
-				foreach( $pmm_ratings as $k => $v ) {
-					if ( $c < 5 ) {
-						echo '<li><span>'. $marketing_terms[$k] .'</span><span class="stars">';
-						for($j=0; $j<5; $j++) {
-							if($j < $v) {
-							echo '<span class="on">*</span>';
-							} else {
-							echo '<span></span>';
-							}
-						}
-						echo '</span></li>';
-					}
-					$c++;
-				}
-				echo '</ul></div>';
-			}
+			progodotcom_performance_meter($post->ID);
 			if(wpsc_product_external_link(wpsc_the_product_id()) != '') {
 				$action =  wpsc_product_external_link(wpsc_the_product_id());
 			} else {
@@ -124,7 +87,7 @@ progo_timing = <?php $hsecs = absint($options['homeseconds']); echo $hsecs > 0 ?
 do_action('progo_pagetop'); ?>
 </div>
 <div id="container" class="container_12">
-<div id="main" role="main" class="grid_12">
+<div id="main" class="grid_12">
 <?php
 rewind_posts();
 switch ( $options['frontpage'] ) {
@@ -174,6 +137,4 @@ switch ( $options['frontpage'] ) {
 ?>
 </div><!-- #main -->
 </div><!-- #container -->
-<?php get_footer(); 
- }
-?>
+<?php get_footer(); ?>

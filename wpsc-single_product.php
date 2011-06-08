@@ -205,9 +205,11 @@
 						<input type="hidden" value="<?php echo wpsc_the_product_id(); ?>" name="prodid"/>
 						<input type="hidden" value="<?php echo wpsc_the_product_id(); ?>" name="item"/>
 					</form>
-                    <?php } else {
+                    <?php } else { // for THEMES products
 						$custombg = wp_get_attachment_image_src($custombg, 'pbg');
 						?><div id="ptop" style="background-image:url(<?php echo $custombg[0]; ?>)">
+                        <div class="tdetails"><?php echo wpautop($contentprev,1); ?></div>
+                        <?php progodotcom_performance_meter(wpsc_the_product_id()); ?>
 						</div>
 					<?php } ?>
                     	<div class="moredetails">

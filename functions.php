@@ -1723,3 +1723,37 @@ function progodotcom_mail( $msg ) {
 	}
 	return $msg;
 }
+
+if(!function_exists('progodotcom_performance_meter')):
+function progodotcom_performance_meter($postid) {
+	$marketing_terms = get_option( 'progo_pmm_terms' );
+	$custom = get_post_meta($postid,'_progo_pmm');
+	$pmm_ratings = $custom[0];
+	if(is_array($pmm_ratings)) {
+		$pmm_arrow = isset($pmm_ratings['arrowd']) ? $pmm_ratings['arrowd'] : '';
+		unset($pmm_ratings['arrowd']);
+		echo '<div class="meter p'. $postid .'"><strong>Performance Marketing Meter</strong><ul>';
+		$c = 0;
+		foreach( $pmm_ratings as $k => $v ) {
+			if ( $c < 5 ) {
+				echo '<li><span>'. $marketing_terms[$k] .'</span><span class="stars">';
+				for($j=0; $j<5; $j++) {
+					if($j < $v) {
+					echo '<span class="on">*</span>';
+					} else {
+					echo '<span></span>';
+					}
+				}
+				echo '</span></li>';
+			}
+			$c++;
+		}
+		echo '</ul></div>';
+		if(is_front_page() == false) {
+			if($pmm_arrow != '') {
+				echo '<div id="tar"><span>'. $pmm_arrow .'</span></div>';
+			}
+		}
+	}
+}
+endif;

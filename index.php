@@ -18,7 +18,7 @@ get_header(); ?>
 <?php do_action('progo_pagetop'); ?>
 </div>
 <div id="container" class="container_12"><!-- progotemplate: index.php -->
-<div id="main" role="main" class="grid_8">
+<div id="main" class="grid_8">
 <?php
 /* Run the loop to output the posts.
 * If you want to overload this in a child theme then include a file

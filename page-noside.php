@@ -15,7 +15,7 @@ get_header();
 <?php do_action('progo_pagetop'); ?>
 </div>
 <div id="container" class="container_12">
-<div id="main" role="main" class="grid_12">
+<div id="main" class="grid_12">
 <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 <div class="entry">
 <?php the_content(); ?>

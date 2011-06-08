@@ -62,8 +62,12 @@ abbr, acronym { border-bottom: 1px dotted #666; cursor: help }
 sup, sub { height: 0; line-height: 1; position: relative; vertical-align: baseline }
 sup { bottom: 1ex }
 sub { top: .5ex }
-input[type="text"], input.text, textarea { background: #fff; border: 1px solid #ccc; box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); padding: 2px }
+input[type="text"], input.text, textarea, .wpcf7-form select { background: #fff; border: 1px solid #ccc; box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); padding: 2px }
 input.text, textarea { width: 163px }
+.wpcf7-form input.text, .wpcf7-form textarea, .wpcf7-form select { width: 281px; padding: 6px 2px; margin: 5px 0 10px; border-radius: 4px }
+.wpcf7-form textarea { width: 589px; padding: 4px 2px }
+.wpcf7-form label { font-weight: bold; font-size: 14px }
+#main input.wpcf7-submit { float: left; width: 162px; height: 29px; color: #fff; font-weight: bold; cursor: pointer; border: none; background: url(../images/submit.png) no-repeat 0 0; margin: 9px 0 }
 span.shipping_region_name, span.shipping_country_name { background: #fff; border: 1px solid #ccc; box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); padding: 2px; float: left; height: 17px; margin-bottom: 10px; width: 163px; font-weight: normal; cursor: default; color: #666 }
 .zip input.text {width:58px }
 input.text.need { border-color: #f00 }
@@ -75,8 +79,8 @@ a:hover, a.more-link, body.blog .entry-utility a { text-decoration: underline }
 
 /* hdr */
 #hdr { float: left; height: 103px; position: relative }
-#logo { float: left; margin: 9px 12px 0 2px; width: 150px; height: 80px; text-indent: -999em; background: url(../images/logo_progo.png) no-repeat 0 0 }
-#slogan { float: left; margin: 45px 0 0; font: 16px/18px "TitilliumText14L400wt", Arial, Helvetica, sans-serif; color: #515151 }
+#logo { float: left; margin: 9px 15px 0 0; width: 150px; height: 80px; text-indent: -999em; background: url(../images/logo_progo.png) no-repeat 0 0 }
+#slogan { float: left; margin: 44px 0 0; font: 16px/18px "TitilliumText14L400wt", Arial, Helvetica, sans-serif; color: #515151 }
 ul#nav { float:left; margin: 0; padding: 0 1px 0 0; list-style: none; position: absolute; bottom: 0; right: -14px; background: url(../images/navli.png) no-repeat 100% 100%; z-index: 5 }
 ul#nav li { float: left; padding: 5px 0 0 1px; background: url(../images/navli.png) no-repeat 0 100% }
 ul#nav li a { float: left; height: 27px; color: #4b4b4b; font-size: 13px; padding: 24px 23px 6px; font-weight: bold }
@@ -90,7 +94,7 @@ ul#nav li.current-menu-item li a, ul#nav li li a:hover { background: none; font-
 ul#nav li li a:hover { text-decoration: underline }
 ul#nav li li.current-menu-item a { background: none; text-decoration: underline; font-weight: normal }
 
-.hblock { position: absolute; top: 0; right: -33px; z-index: 7; display: block; width: 194px }
+.hblock { position: absolute; top: 0; right: -21px; z-index: 7; display: block; width: 194px }
 .hblock.social { top: 11px; right: 177px; z-index:5; width: auto }
 .hblock.widget_wpsc_shopping_cart h3.title { display: block; width: 140px; height: 32px; margin: 0; background:url(../images/carttab.png) 0 0; position: absolute; top: 0; right: 0; font-size: 13px; font-weight: bold; padding: 14px 0 0 54px; z-index:7; cursor: pointer }
 .cartcounter { font-size: 13px; font-weight: bold; }
@@ -102,14 +106,14 @@ ul#nav li li.current-menu-item a { background: none; text-decoration: underline;
 #hdr .cartcounter em { display: none }
 /* content */
 #htop { float: left; width: 100%; height: 300px; text-align: center; color: #fff; position: relative }
-#htop h1 { text-transform: uppercase; margin: 25px 0 0 }
-#htop a { display: block; text-align: left; text-indent: -999em; width: 314px; height: 138px; position: absolute; left: 50%; bottom: 0; margin-left: -157px; z-index: 10; background: url(../images/hbtn.png) no-repeat 0 0 }
+#htop h1 { text-transform: uppercase; margin: 22px 0 0 }
+#htop a { display: block; text-align: left; text-indent: -999em; width: 314px; height: 138px; position: absolute; left: 50%; bottom: -5px; margin-left: -155px; z-index: 10; background: url(../images/hbtn.png) no-repeat 0 0 }
 
 #pagetop { float: left; width: 100%; height: 155px; position: relative; color: #fff; margin: 0 -20px; padding: 0 20px; background:url(../images/shadt.png) no-repeat 0 100% }
 body.home #pagetop { background: url(../images/hshad.jpg) no-repeat 0 0; padding: 0; width: 1000px; height: 473px }
 #pagetop .page-title { float: left; width: 906px; margin: 3px 25px }
-#htop h1, #pagetop .page-title { font: 98px/120% "TitilliumText14L800wt", Arial, Helvetica, sans-serif; letter-spacing: -0.03em; text-shadow: 3px 3px rgba(160, 72, 0, 1.0) }
-#htop h1 em { font-style: normal; text-transform: lowercase; font-size: 55px; letter-spacing: 0; position: relative; top: -63px }
+#htop h1, #pagetop .page-title { font: 98px/120% "TitilliumText14L800wt", Arial, Helvetica, sans-serif; letter-spacing: -0.03em; text-shadow: #a04800 3px 3px 2px }
+#htop h1 em { font-style: normal; text-transform: lowercase; font-size: 55px; letter-spacing: 0; position: relative; top: -47px }
 /* homepage slides */
 #pagetop.sliding { overflow: hidden }
 #pagetop .slide { display: none; float: left; width: 988px; height: 424px }
@@ -122,7 +126,8 @@ body.home #pagetop { background: url(../images/hshad.jpg) no-repeat 0 0; padding
 #pagetop .slide a.product_image { float: left; width: 290px; height: 290px; padding: 7px 21px 8px 19px; margin: 13px 0 12px; background:url(../images/prodimg.png) no-repeat 0 0 }
 #pagetop .product_form { position: absolute; right: 24px; bottom: 23px }
 #pagetop .desc { position: absolute; top: 88px; right: 24px; display: block; width: 354px; font-size: 16px; line-height: 20px; color: #fff }
-.slide .meter { position: absolute; top: 196px; left: 611px }
+.meter { position: absolute; top: 217px; left: 43px }
+.slide .meter { top: 196px; left: 611px }
 .meter strong { font-size: 18px; color: #E2FE3F }
 .meter ul { list-style: none; margin: 5px 0 0; padding: 0; width: 267px }
 .meter li { float: left; width: 267px; padding: 0 0 2px; background: url(../images/meterd.gif) repeat-x 0 100%; font-weight: bold }
@@ -233,6 +238,7 @@ body.blog .block { width: 100%; border: none; margin: 0 0 30px }
 body.blog .block h3.title { padding: 0; color: #333; background: none }
 body.blog .block h3.title .spacer { float: left; margin: 0; font-family: "TitilliumText14L600wt", Arial, Helvetica, sans-serif }
 body.blog .block .inside { width: 100%; padding-left: 0 }
+body.blog .fblikebox { position: relative; left: -10px }
 
 /* wpsc */
 body.single-wpsc-product .container_12 #main.grid_8 { width: 940px }

@@ -215,4 +215,7 @@ body.wpsc-shopping-cart div.req { margin: 30px 8px 20px; width: 100% }
 /*-----custom BGs for Product Details pages-----*/
 body.postid-50 { background-image: url(images/products/bg-50.png) }
 body.postid-50 #fx { background-image: url(images/products/fx-50.jpg) }
-#ptop { float: left; width: 724px; height: 436px; position: relative; background: no-repeat 0 0; margin: -10px 0 0 -24px }
+#ptop { float: left; width: 724px; height: 504px; position: relative; background: no-repeat 0 0; margin: -10px 0 0 -24px; color: #fff }
+#ptop .tdetails { position: absolute; top: 85px; left: 44px; font-size: 15px; font-weight: bold; line-height: 22px; width: 341px }
+#tar { width: 776px; height: 113px; position: absolute; top: 422px; left: -24px; background: url(images/themar.png) no-repeat 0 0 }
+#tar span { display: block; margin: 38px 0 0 47px; font: 36px/36px "TitilliumText14L400wt", Arial, Helvetica, sans-serif; color: #fff; text-transform: uppercase; text-shadow: -2px -2px 2px rgba(0,0,0,0.65); letter-spacing: 0.02em }
