@@ -166,7 +166,7 @@
 						}
 		
 						$variation_list = '';
-						
+						/* HANDLEPROGOKEYHERE */
 						$additional_content = apply_filters( 'wpsc_transaction_result_content', array( "purchase_id" => $purchase_log['id'], "cart_item" => $row, "purchase_log" => $purchase_log ) );
 						if ( !is_string( $additional_content ) ) {
 							$additional_content = '';
