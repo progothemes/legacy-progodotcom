@@ -18,6 +18,7 @@
 	global $user_ID, $nzshpcrt_gateways, $sessionid, $cart_log_id, $errorcode;
 	$errorcode = '';
 	$transactid = '';
+	echo '<!-- check1 -->';
 	$dont_show_transaction_results = false;
 	if ( isset( $_GET['sessionid'] ) )
 		$sessionid = $_GET['sessionid'];
@@ -55,8 +56,11 @@
 			$sessionid = decrypt_dps_response();
 		break;
 	}
+	echo '<!-- check2 -->';
 	if(!$dont_show_transaction_results ) {
+	echo '<!-- check3 -->';
 		if ( !empty($sessionid) ){
+	echo '<!-- check4 -->';
 			$cart_log_id = $wpdb->get_var( "SELECT `id` FROM `" . WPSC_TABLE_PURCHASE_LOGS . "` WHERE `sessionid`= " . $sessionid . " LIMIT 1" );
 			//return transaction_results( $sessionid, true );
 			// Do we seriously need this many globals?
@@ -80,6 +84,7 @@
 				
 			$echo_to_screen = $display_to_screen;
 		
+	echo '<!-- check1 -->';
 			if ( is_numeric( $sessionid ) ) {
 				if ( $echo_to_screen )
 					echo apply_filters( 'wpsc_pre_transaction_results', '' );
