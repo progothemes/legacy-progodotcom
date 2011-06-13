@@ -85,6 +85,7 @@
 			$echo_to_screen = $display_to_screen;
 		
 	echo '<!-- check1 -->';
+	echo '<pre style="display:none">'. print_r($purchase_log,true) .'</pre>';
 			if ( is_numeric( $sessionid ) ) {
 				if ( $echo_to_screen )
 					echo apply_filters( 'wpsc_pre_transaction_results', '' );
@@ -107,6 +108,9 @@
 					$billing_country = $country;
 					$shipping_country = $country;
 				}
+				// BILLING INFO
+				
+				// no SHIPPING here so skip to ORDER SUMMARY...
 		
 				$email = wpsc_get_buyers_email($purchase_log['id']);
 				$previous_download_ids = array( );
@@ -115,8 +119,8 @@
 				$cart = $wpdb->get_results( "SELECT * FROM `" . WPSC_TABLE_CART_CONTENTS . "` WHERE `purchaseid` = '{$purchase_log['id']}'" , ARRAY_A );
 				if ( ($cart != null) && ($errorcode == 0) ) {
 					$total_shipping = '';
-					$product_list = '<table><tr class="firstrow"><td colspan="4">Order Summary</td></tr><tr class="subh product_row"><td>Qty</td><td>Product Title</td><td>Price</td><td>Total</td></tr>';
-					$product_list_html = '<table><tr class="firstrow"><td colspan="4">Order Summary</td></tr><tr class="subh product_row"><td>Qty</td><td>Product Title</td><td>Price</td><td>Total</td></tr>';
+					$product_list = '<table class="wpsc_checkout_table"><tr class="firstrow"><td colspan="4">Order Summary</td></tr><tr class="subh product_row"><td width="10%">Qty</td><td width="60%">Product Title</td><td width="15%" align="right">Price</td><td width="15%" align="right">Total</td></tr>';
+					$product_list_html = '<table class="wpsc_checkout_table"><tr class="firstrow"><td colspan="4"><h4>Order Summary #'. $sessionid .'</h4></td></tr><tr class="subh product_row"><td width="10%"><strong>Qty</strong></td><td width="60%"><strong>Product Title</strong></td><td width="15%" align="right"><strong>Price</strong></td><td width="15%" align="right"><strong>Total</strong></td></tr>';
 					foreach ( $cart as $row ) {
 						$link = array( );
 						if ( $purchase_log['email_sent'] != 1 )
@@ -178,8 +182,8 @@
 								$product_list .= "\n\r " . $single_link["name"] . ": " . $single_link["url"] . "\n\r";
 								$product_list_html .= "<a href='" . $single_link["url"] . "'>" . $single_link["name"] . "</a>\n";
 							}
-							$product_list .= "$additional_content</td><td>$message_price</td><td>$message_price</td></tr>";
-							$product_list_html .= "$additional_content</td><td>$message_price</td><td>$message_price</td></tr>";
+							$product_list .= "$additional_content</td><td align='right'>$message_price</td><td align='right'>$message_price</td></tr>";
+							$product_list_html .= "$additional_content</td><td align='right'>$message_price</td><td align='right'>$message_price</td></tr>";
 						} else {
 						
 							$product_list.= "<tr class=\"product_row\"><td>$row[quantity]</td><td>$row[name]<br />$additional_content</td><td>$message_price</td><td>$total</td></tr>";
@@ -236,22 +240,22 @@
 						
 						$report.= $discount_email . "\n\r";
 						$total_shipping_email .= $discount_email;
-						$total_shipping_html .= '<tr class="addon"><td align="right">'. __('Discount', 'wpsc') .': <span id="coupons_amount" class="pricedisplay">'. wpsc_currency_display( $purchase_log['discount_value'] ) .'</span></td></tr>';
+						$total_shipping_html .= '<tr class="addon"><td width="70%"></td><td width="15%" align="right">'. __('Discount', 'wpsc') .'</td><td width="15%" align="right"><span id="coupons_amount" class="pricedisplay">'. wpsc_currency_display( $purchase_log['discount_value'] ) .'</span></td></tr>';
 						//__( 'Discount', 'wpsc' ) . ": " . wpsc_currency_display( $purchase_log['discount_value'] ) . "\n\r";
 					}
 		
 					//only show total tax if tax is not included
 					if($wpec_taxes_controller->wpec_taxes_isenabled() && !$wpec_taxes_controller->wpec_taxes_isincluded()){
-						$total_tax_html .= '<tr class="addon total_tax"><td align="right">'. __('Total Tax', 'wpsc').': <span id="checkout_tax" class="pricedisplay checkout-tax">'. wpsc_currency_display( $purchase_log['wpec_taxes_total'] )."</span></td></tr>";
+						$total_tax_html .= '<tr class="addon total_tax"><td width="70%"></td><td align="right" width="15%">'. __('Total Tax', 'wpsc').'</td><td width="15%" align="right"><span id="checkout_tax" class="pricedisplay checkout-tax">'. wpsc_currency_display( $purchase_log['wpec_taxes_total'] )."</span></td></tr>";
 						$total_tax .= __('Total Tax', 'wpsc').': '. wpsc_currency_display( $purchase_log['wpec_taxes_total'] , array( 'display_as_html' => false ) )."\n\r"; 		
 					}
-					$total_shipping_html.= '<tr class="addon total_shipping"><td align="right">'. __( 'Total Shipping:', 'wpsc' ) .': <span id="checkout_shipping" class="pricedisplay checkout-shipping">'. wpsc_currency_display( $total_shipping ) .'</span></td></tr>';
+					$total_shipping_html.= '<tr class="addon total_shipping"><td width="70%"></td><td width="15%" align="right">'. __( 'Total Shipping', 'wpsc' ) .'</td><td width="15%" align="right"><span id="checkout_shipping" class="pricedisplay checkout-shipping">'. wpsc_currency_display( $total_shipping ) .'</span></td></tr>';
 					
 					$total_price_email .= sprintf(__( 'Total: %s
 		', 'wpsc' ), wpsc_currency_display( $total, array( 'display_as_html' => false ) ));
 		
 					$total_price_html .= $total_shipping_html . $total_tax_html;
-					$total_price_html .= '<tr class="total_price product_row"><td align="right">'. sprintf(__( '<strong> Grand Total: <span id="checkout_total" class="pricedisplay checkout-total">%s</span></strong>', 'wpsc' ), wpsc_currency_display( $total ) ) .'</td></tr></table>';
+					$total_price_html .= '<tr><td width="70%"></td><td width="15%" align="right">Grand Total</td><td width="15%" align="right"><span id="checkout_total" class="pricedisplay checkout-total">'. wpsc_currency_display( $total ) .'</span></td></tr></table>';
 					
 					// total_price includes shipping & tax so
 					$total_shipping_email = $total_shipping_html = $total_tax_html = $total_tax = '';

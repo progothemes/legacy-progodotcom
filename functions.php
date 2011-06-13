@@ -159,7 +159,7 @@ if ( ! function_exists( 'progo_prepare_transaction_results' ) ):
 function progo_prepare_transaction_results() {
 	global $purchase_log;
 	$options = get_option( 'progo_options' );
-	$purchase_log['find_us'] = '<table><tr class="firstrow"><td>Our Company Info</td></tr><tr><td>'. esc_html( $options['companyinfo'] ) .'</td></tr></table>';
+	$purchase_log['find_us'] = '<table class="wpsc_checkout_table"><tr class="firstrow"><td><h4>Our Company Info</h4></td></tr><tr><td>'. esc_html( $options['companyinfo'] ) .'</td></tr></table>';
 }
 endif;
 if ( ! function_exists( 'progo_direct_form_fields' ) ):
@@ -1740,9 +1740,13 @@ function progo_bodyclasses($classes) {
 			$classes[] = 'blog';
 			break;
 	}
-	if(is_page(120)) {
+	if(is_page(120)) { // /themes page
 		$classes[] = 'wpsc';
 	}
+	if(is_page(45)) { // transaction-results page
+		$classes[] = 'wpsc-shopping-cart';
+	}
+	
 	return $classes;
 }
 endif;
