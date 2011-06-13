@@ -45,16 +45,16 @@ function progo_setup() {
 	add_action( 'admin_menu', 'progo_admin_menu_cleanup' );
 	add_action( 'login_head', 'progo_custom_login_logo' );
 	add_action( 'login_headerurl', 'progo_custom_login_url' );
-	add_action('wp_print_scripts', 'progo_add_scripts');
-	add_action('wp_print_styles', 'progo_add_styles');
+	add_action( 'wp_print_scripts', 'progo_add_scripts' );
+	add_action( 'wp_print_styles', 'progo_add_styles' );
 	add_action( 'admin_notices', 'progo_admin_notices' );
 	add_action( 'wp_before_admin_bar_render', 'progo_admin_bar_render' );
 	add_action( 'progo_pre_gateways', 'progodotcom_gatewaycleanup' );
 	add_action( 'save_post', 'progo_save_meta' );
 	add_action( 'get_header', 'progo_header_check' );
 	
-	remove_action('wp_head', 'st_widget_head');
-	add_action('wp_head', 'progo_st_widget_head');
+	remove_action( 'wp_head', 'st_widget_head' );
+	add_action( 'wp_head', 'progo_st_widget_head' );
 	
 	// add custom filters
 	add_filter( 'body_class', 'progo_bodyclasses' );
@@ -62,8 +62,9 @@ function progo_setup() {
 	add_filter( 'wpsc_pre_transaction_results', 'progo_prepare_transaction_results' );
 	add_filter( 'wp_mail_content_type', 'progo_mail_content_type' );
 	add_filter( 'wp_mail', 'progodotcom_mail' );
-	add_filter('custom_menu_order', 'progo_admin_menu_order');
-	add_filter('menu_order', 'progo_admin_menu_order');
+	add_filter( 'custom_menu_order', 'progo_admin_menu_order' );
+	add_filter( 'menu_order', 'progo_admin_menu_order' );
+	add_filter( 'wpsc_transaction_result_content', 'progo_transaction_keycheck', 20, 3 );
 }
 endif;
 if ( ! function_exists( 'progodotcom_init' ) ):
@@ -1991,6 +1992,52 @@ function progodotcom_performance_meter($postid) {
 			}
 		}
 	}
+}
+endif;
+if(!function_exists('progo_format_apikey')):
+function progo_format_apikey($key) {
+	return implode( '-', str_split( strtoupper( $key ), 4 ) );
+}
+endif;
+if(!function_exists('progo_transaction_keycheck')):
+function progo_transaction_keycheck( $additional_content, $purchase_id, $cart_item ) {
+	global $sessionid, $purchase_log;
+	//extract($args); // array( "purchase_id" => $purchase_log['id'], "cart_item" => $row, "purchase_log" => $purchase_log )
+	$keydb = new wpdb('progokeys', 'NFUh02y67U1', 'progokeys', 'localhost');
+	$key_row = $keydb->get_row( "SELECT * FROM `progo_keys` WHERE `wpec_id` = ". $sessionid );
+	$apikey = '';
+	$email = wpsc_get_buyers_email($purchase_log['id']);
+	$theme = strtolower( str_replace( ' ', '', $cart_item['name'] ) );
+	$currtime = date('Y-m-d H:i:s');
+	
+	if(is_null($key_row)) {
+		$newkey = md5(crypt("$email : $currtime : $theme"));
+		
+		$server_ip = $_SERVER['SERVER_ADDR'];
+		$user_agent = $_SERVER['HTTP_USER_AGENT'];
+		
+		$keydb->insert( 'progo_keys', array(
+			'url' => 'newkey',
+			'server_ip' => $server_ip,
+			'api_key' => $newkey,
+			'theme' => $theme,
+			'user_agent' => $user_agent,
+			'last_checked' => $currtime,
+			'auth_code' => 0,
+			'wpec_id' => $sessionid
+		), array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s' ) );
+		$apikey = progo_format_apikey($newkey);
+		
+		$email_headers = 'From: ProGo Themes <info@progo.com>' . "\r\n";
+		$msg = "Thank you for purchasing the ". $cart_item['name'] ." theme.<br /><br />Your new API key is: ". $apikey;
+		$msg .= "<br /><br />You may also want to <a href='http://www.progo.com/resources/QuickStartGuide-". str_replace(' ','-', $cart_item['name']) .".pdf'>download the Quick Start Guide (pdf)</a>.";
+		$msg .="<br /><br />And if you have not yet downloaded your new theme files, you can also find that link on your <a href='http://www.progo.com/products-page/transaction-results/?sessionid=". $sessionid ."'>Transaction Results page</a>.<br /><br />Enjoy!<br />- ProGo";
+		wp_mail($email, 'Your ProGo Theme API Key', $msg, $email_headers);
+	} else {
+		$apikey = progo_format_apikey($key_row->api_key);
+	}
+	$oot = "API Key: $apikey";
+	return $additional_content ."\n$oot"; // ."\npurchase_log : <pre>". print_r($purchase_log,true) ."</pre>";
 }
 endif;
 if(!function_exists('progo_change_tax') ) :

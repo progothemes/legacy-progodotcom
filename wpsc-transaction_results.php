@@ -171,16 +171,17 @@
 		
 						$variation_list = '';
 						/* HANDLEPROGOKEYHERE */
-						$additional_content = apply_filters( 'wpsc_transaction_result_content', array( "purchase_id" => $purchase_log['id'], "cart_item" => $row, "purchase_log" => $purchase_log ) );
+						$additional_content = '';
+						$additional_content = apply_filters( 'wpsc_transaction_result_content', $additional_content, $purchase_log['id'], $row, $session_id );
 						if ( !is_string( $additional_content ) ) {
 							$additional_content = '';
 						}
 						if ( !empty( $link ) ) {
 							$product_list .= "<tr class=\"product_row\"><td>$row[quantity]</td><td>$row[name]<br />" . __( 'Click to download', 'wpsc' ) . ":";
-							$product_list_html .= "<tr class=\"product_row\"><td>$row[quantity]</td><td>$row[name]<br />" . __( 'Click to download', 'wpsc' ) . ":\n\r";
+							$product_list_html .= "<tr class=\"product_row\"><td>$row[quantity]</td><td>$row[name] : ";
 							foreach ( $link as $single_link ) {
 								$product_list .= "\n\r " . $single_link["name"] . ": " . $single_link["url"] . "\n\r";
-								$product_list_html .= "<a href='" . $single_link["url"] . "'>" . $single_link["name"] . "</a>\n";
+								$product_list_html .= "<a href='" . $single_link["url"] . "'>Click Here to download your ". $single_link["name"] ." theme</a>\n";
 							}
 							$product_list .= "$additional_content</td><td align='right'>$message_price</td><td align='right'>$message_price</td></tr>";
 							$product_list_html .= "$additional_content</td><td align='right'>$message_price</td><td align='right'>$message_price</td></tr>";
