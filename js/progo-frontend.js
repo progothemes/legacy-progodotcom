@@ -191,4 +191,13 @@ jQuery(function($) {
 	}).parent().bind('mouseleave',function() {
 		$(this).removeClass('over');
 	});
+	
+	$('#feedburner_email_widget_sbef_email').addClass('text fbrn').bind({
+		focus: function() {
+			if($(this).val() == 'Email address') $(this).val('');
+		},
+		blur: function() {
+			if($(this).val() == '') $(this).val('Email address');
+		}
+	}).trigger('blur');
 });

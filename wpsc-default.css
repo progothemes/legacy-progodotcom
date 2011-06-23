@@ -175,7 +175,7 @@ span.rating_saved{ color: #990000; display: none }
 table.wpsc_checkout_table { width: 100%; border: none; padding: 0 }
 table.wpsc_checkout_table.table-2 { display: none } /*NOSHIPPING*/
 table.wpsc_checkout_table.table-4 { border-top: 1px solid #ccc }
-table.wpsc_checkout_table tr td { padding: 10px 8px; font-size: 13px; vertical-align:top }
+table.wpsc_checkout_table tr td { padding: 10px 8px 8px; font-size: 13px; vertical-align:top }
 table.wpsc_checkout_table tr td.wpsc_CC_details { width: 134px }
 table.wpsc_checkout_table tr td.wpsc_totals { text-align: right }
 table.wpsc_checkout_table tr.total_price td { font-size: 16px; line-height:20px; color: #fff; background-color: #333 }
@@ -227,13 +227,13 @@ body.postid-50 #fx { background-image: url(images/products/fx-50.jpg) }
 .pprice strong span, .pprice strong u { font-size: 28px; position: relative; top: -21px; left: -3px }
 .pprice strong u { font-size: 18px; left: 6px; top: -24px }
 .pform table.wpsc_checkout_table label { display: none }
-.pform .wpsc_checkout_table input.text { width: 202px; padding: 2px 3px 5px; margin-top: 12px }
+.pform .wpsc_checkout_table input.text { width: 202px; padding: 2px 3px 5px; margin-top: 12px; height: 16px; border-radius: 4px }
 .pform table div { float: right }
 .pform table select { float: right; margin: 12px 4px 0 0; height: 25px }
 .pform select.current_country { width: 121px }
 .pform select.current_region { margin-right: 18px }
 .pform table.wpsc_checkout_table td.cred { padding: 0 }
-#main .pform input.buynow, #main .theend a.buynow { display: block; border: none; width: 216px; height: 68px; background:url(images/buynow.png) no-repeat 0 0; font-size: 23px; font-family: "TitilliumText14L800wt", Arial, Helvetica, sans-serif; color: #fff; text-shadow: -2px -2px 2px rgba(0,0,0,0.30); cursor: pointer }
+#main .pform input.buynow, #main .theend a.buynow { display: block; border: none; width: 216px; height: 68px; background:url(images/buynow.png) no-repeat 0 0; font-size: 23px; font-family: "TitilliumText14L800wt", Arial, Helvetica, sans-serif; color: #fff; text-shadow: -2px -2px 2px rgba(0,0,0,0.30); cursor: pointer; position: relative; top: -1px }
 #main .theend a.buynow { text-align: center; padding: 25px 0 0; height: 43px; text-transform: uppercase }
 #main .theend a.buynow:hover { text-decoration: none }
 #main .theend .pprice { position: absolute; bottom: 63px; left: 274px; margin: 0; height: auto; font-weight: normal }

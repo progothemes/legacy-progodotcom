@@ -60,9 +60,11 @@ abbr, acronym { border-bottom: 1px dotted #666; cursor: help }
 sup, sub { height: 0; line-height: 1; position: relative; vertical-align: baseline }
 sup { bottom: 1ex }
 sub { top: .5ex }
-input[type="text"], input.text, textarea, .wpcf7-form select { background: #fff; border: 1px solid #ccc; box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); padding: 2px }
-input.text, textarea { width: 163px }
-.wpcf7-form input.text, .wpcf7-form textarea, .wpcf7-form select { width: 281px; padding: 6px 2px; margin: 5px 0 10px; border-radius: 4px }
+input[type="text"], .text, textarea, .wpcf7-form select { background: #fff; border: 1px solid #ccc; box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,0.1); padding: 2px }
+.text, textarea { width: 163px }
+input.fbrn { width: 206px; border-color: #b4b4b4; padding: 10px; position: relative; margin: 0 0 8px -10px; display: block; border-radius: 4px }
+#feedburner_email_widget_sbef_submit { display: block; border: none; width: 228px; height: 33px; color: #fff; background: url(../images/subscribe.png) no-repeat 0 0; font: 18px/33px "TitilliumText14L600wt", Arial, Helvetica, sans-serif; position: relative; left: -10px; cursor: pointer }
+.wpcf7-form .text, .wpcf7-form textarea, .wpcf7-form select { width: 281px; padding: 6px 2px; margin: 5px 0 10px; border-radius: 4px }
 .wpcf7-form textarea { width: 589px; padding: 4px 2px }
 .wpcf7-form label { font-weight: bold; font-size: 14px }
 #main input.wpcf7-submit { float: left; width: 162px; height: 29px; color: #fff; font-weight: bold; cursor: pointer; border: none; background: url(../images/submit.png) no-repeat 0 0; margin: 9px 0 }
