@@ -116,9 +116,10 @@ body.home #pagetop { background: url(../images/hshad.jpg) no-repeat 0 0; padding
 #htop h1 em { font-style: normal; text-transform: lowercase; font-size: 55px; letter-spacing: 0; position: relative; top: -47px }
 /* homepage slides */
 #pagetop.sliding { overflow: hidden }
-#pagetop .slide { display: none; float: left; width: 988px; height: 424px }
-#pagetop .slide.s0 { background: url(../images/hslides/ecommerce.jpg) no-repeat 0 0 }
-#pagetop .slide.s1 { background: url(../images/hslides/direct.jpg) no-repeat 0 0 }
+#pagetop .slide { display: none; float: left; width: 988px; height: 424px; background-repeat: no-repeat; background-position: 0 0; }
+#pagetop .slide.s0 { background-image: url(../images/hslides/ecommerce.jpg) }
+#pagetop .slide.s1 { background-image: url(../images/hslides/direct.jpg) }
+#pagetop .slide.s2 { background-image: url(../images/hslides/businesspro.jpg) }
 #pagetop .slide.page-title { width: 906px } 
 #pagetop .slide.on { display: block }
 #pagetop.sliding .slide { display: block; position: absolute; top: 6px; left: 1000px }
@@ -138,6 +139,8 @@ body.home #pagetop { background: url(../images/hshad.jpg) no-repeat 0 0; padding
 .meter span.stars span.on { background-position: 0 -11px; text-indent:-999em }
 .meter.p50 strong { color: #5EE2FF }
 .meter.p52 span.stars span.on { background-position: 0 -22px }
+.meter.p300 strong { color: #ffc61e }
+.meter.p300 span.stars span.on { background-position: 0 -33px }
 
 .ar { float: left; display: block; width: 965px; height: 38px; position: absolute; bottom: 2px; left: 17px }
 .ar a { float: left }
@@ -148,6 +151,7 @@ body.home #pagetop { background: url(../images/hshad.jpg) no-repeat 0 0; padding
 .ar a.s:hover { text-decoration: none }
 .ar a.s.on .on { display: block; color: #e2fe3f }
 .ar a.s.s0 .on { color: #5EE2FF }
+.ar a.s.s2 .on { color: #ffc71a }
 
 #main { font-size: 13px }
 #main input, #main textarea { color: #333; font-size: 13px; line-height: 120% }

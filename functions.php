@@ -529,7 +529,7 @@ try{convertEntities(wpsc_adminL10n);}catch(e){};
 	?>
 	<div class="wrap">
     <div class="icon32" id="icon-themes"><br /></div>
-    <h2>ProGo Ecommerce Theme Options</h2>
+    <h2>ProGoDotCom Theme Options</h2>
 	<form action="options.php" method="post" enctype="multipart/form-data"><?php
 		settings_fields( 'progo_options' );
 		//do_settings_sections( 'progo_theme' );
@@ -567,7 +567,7 @@ try{convertEntities(wpsc_adminL10n);}catch(e){};
 		} ?>
         </table><p><br /></p>
         <h3>WP e-Commerce</h3>
-		<p>Your ProGo <em>Ecommerce</em> Theme works hand-in-hand with the <strong>WP e-Commerce</strong> Plugin.</p>
+		<p>Your ProGo Theme works hand-in-hand with the <strong>WP e-Commerce</strong> Plugin.</p>
 		<?php
 	// check for wp-e-commerce installed..
 	$plugs = get_plugins();
@@ -1238,6 +1238,12 @@ function progo_add_scripts() {
 		wp_enqueue_script( 'progo', get_bloginfo('template_url') .'/js/progo-frontend.js', array('jquery', 'cufon-yui'), '1.0' );
 		*/
 		wp_enqueue_script( 'progo', get_bloginfo('template_url') .'/js/progo-frontend.js', array('jquery'), '1.0' );
+	} else {
+		if ( $_GET['page'] == 'progo_home_slides' ) {
+			# here be drag'ns
+            wp_enqueue_script('post');
+            wp_enqueue_script('progo-homeslides-admin', get_bloginfo( 'template_url' ) .'/js/homeslides-admin.js', array ( 'jquery', 'post' ), false, true );
+        }
 	}
 }
 endif;
