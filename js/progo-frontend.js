@@ -200,4 +200,6 @@ jQuery(function($) {
 			if($(this).val() == '') $(this).val('Email address');
 		}
 	}).trigger('blur');
+	
+	$('.laptop .ngg-slideshow').wrap('<div class="slidewrap" />');
 });

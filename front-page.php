@@ -10,7 +10,7 @@ $options = get_option( 'progo_options' );
 ?>
 <div id="htop">
     <h1>High Performance <em>WordPress Themes</em></h1>
-    <a href="http://www.progo.com/themes/">Shop Themes</a>
+    <a href="<?php echo get_permalink(43); ?>">Shop Themes</a>
 </div>
 <div id="pagetop" class="slides">
 <?php
