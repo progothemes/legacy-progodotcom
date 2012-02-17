@@ -1175,6 +1175,9 @@ function progo_pmm_box() {
 		$pmm_arrow = 'get your new website today';
 	}
 	
+	$custom = get_post_meta($post->ID,'_progo_demo');
+	$pdemo = $custom[0];
+	
 	echo '<p><strong>Performance Marketing Meter</strong></p><table>';
 	// Loop through each variation set
 	foreach ( (array)$marketing_terms as $k => $n ) { ?>
@@ -1188,6 +1191,7 @@ function progo_pmm_box() {
 	}
 	echo '</table><p><a href="'. admin_url('edit-tags.php?taxonomy=progo_pmm&post_type=wpsc-product') .'" target="_blank">Add more Marketing categories</a></p>';
 	echo '<p><label for="_progo_pmm[arrowd]"><strong>Arrow Headline</strong></label><br /><input type="text" name="_progo_pmm[arrowd]" value="'. esc_attr($pmm_arrow) .'" size="38" /></p>';
+	echo '<p><label for="_progo_demo"><strong>Theme Demo URL</strong></label><br /><input type="text" name="_progo_demo" value="'. esc_url($pdemo) .'" size="38" /></p>';
 	
 }
 endif;
@@ -1357,6 +1361,10 @@ function progo_save_meta( $post_id ){
 			}
 			break;
 		case 'wpsc-product':
+			if ( isset( $_POST['_progo_demo'] ) ) {
+				$pdemo = esc_url($_POST['_progo_demo']);
+				update_post_meta($post_id, "_progo_demo", $pdemo);
+			}
 			if ( isset( $_POST['_progo_pmm'] ) ) {
 				$progo_pmm = $_POST['_progo_pmm'];
 				if(is_array($progo_pmm)) {
