@@ -660,8 +660,7 @@ function progo_custom_login_logo() {
 		echo "<!-- login screen here... overwrite logo with custom logo -->\n"; 
 	} else { ?>
 <style type="text/css">
-#login { margin-top: 6em; }
-h1 a { background: url(<?php bloginfo( 'template_url' ); ?>/images/logo_progo.png) no-repeat top center; height: 80px; }
+.login h1 a { background: url(<?php bloginfo( 'template_url' ); ?>/images/logo_progo.png) no-repeat top center; height: 80px; }
 </style>
 <?php }
 }

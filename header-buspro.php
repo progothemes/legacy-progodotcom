@@ -34,7 +34,7 @@
 
 	?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
-<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
+<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'template_url' ); ?>/onepager.css" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php wp_head(); ?>
 </head>
@@ -51,7 +51,6 @@
     	<div class="inside">
             <a href="<?php bloginfo('url') ?>" id="logo"><? bloginfo( 'name' ) ?></a>
             <div id="slogan"><?php bloginfo( 'description' ); ?></div>
-            <?php /*
             <ul id="nav">
                 <li><a href="#fb">Facebook<br />Pages</a></li>
                 <li><a href="#ppc">PPC<br />Pages</a></li>
@@ -62,10 +61,6 @@
                 <li><a href="#">Demo</a></li>
                 <li><a href="#" class="buy">Buy</a></li>
             </ul>
-			*/ ?>
         </div>
     </div>
 </div>
-<div id="fx">
-<div id="wrap" class="container_12">
-	<div id="page" class="container_12">

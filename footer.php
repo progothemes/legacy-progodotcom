@@ -16,12 +16,15 @@
 <div id="fwrap">
 	<div id="ftr" class="container_12">
     <div class="grid_6">
-<?php $fmenu = wp_nav_menu( array( 'container' => 'false', 'theme_location' => 'footer', 'echo' => '0' ) );
-//$fmenu = str_replace('</li>','&nbsp;&nbsp;|&nbsp;&nbsp;</li>',substr($fmenu,0,strrpos($fmenu,'</li>'))) . "</li>\n</ul>";
-echo $fmenu;
-echo '<br />';
+<?php
 $options = get_option('progo_options');
 echo wp_kses($options['copyright'],array());
+
+echo '<br />';
+
+$fmenu = wp_nav_menu( array( 'container' => 'false', 'theme_location' => 'footer', 'echo' => '0' ) );
+//$fmenu = str_replace('</li>','&nbsp;&nbsp;|&nbsp;&nbsp;</li>',substr($fmenu,0,strrpos($fmenu,'</li>'))) . "</li>\n</ul>";
+echo $fmenu;
 ?>
 </div>
 <div class="grid_6 right">
