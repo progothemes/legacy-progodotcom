@@ -1241,9 +1241,10 @@ function progo_add_scripts() {
 		wp_enqueue_script( 'progo', get_bloginfo('template_url') .'/js/progo-frontend.js', array('jquery', 'cufon-yui'), '1.0' );
 		*/
 		wp_enqueue_script( 'progo', get_bloginfo('template_url') .'/js/progo-frontend.js', array('jquery'), '1.0' );
-				
+		/*	
 		wp_register_script('jquery-cycle', NGGALLERY_URLPATH .'js/jquery.cycle.all.min.js', array('jquery'), '2.88');
 		wp_enqueue_script('ngg-slideshow', NGGALLERY_URLPATH .'js/ngg.slideshow.min.js', array('jquery-cycle'), '1.05'); 
+		*/
 	} else {
 		if ( $_GET['page'] == 'progo_home_slides' ) {
 			# here be drag'ns
@@ -2219,3 +2220,28 @@ if ( isset( $_REQUEST['wpsc_ajax_action'] ) && ($_REQUEST['wpsc_ajax_action'] ==
 	remove_action( 'init', 'wpsc_change_tax' );
 	add_action( 'init', 'progo_change_tax' );
 }
+
+function progo_buybtn( $pid, $txt, $class, $btn = 'input', $echo = true ) {
+	$pid = absint($pid);
+	$oot = '<form id="product_'. $pid .'" name="product_'. $pid .'" method="post" action="'. get_option('shopping_cart_url') .'" enctype="multipart/form-data" class="product_form"><input type="hidden" name="wpsc_ajax_action" value="add_to_cart" /><input type="hidden" name="product_id" value="'. $pid .'" /><div class="wpsc_buy_button_container"><div class="wpsc_loading_animation"><img alt="Loading" src="'. get_bloginfo('url') .'/wp-content/plugins/wp-e-commerce/wpsc-theme/wpsc-images/indicator.gif" />Updating cart...</div>';
+	if ( $btn == 'input' ) {
+		$oot .= '<input type="submit" id="product_'. $pid .'_submit_button" class="wpsc_buy_button '. esc_attr($class) .'" name="Buy" value="'. esc_attr($txt) .'" />';
+	} else {
+		$oot .= '<a href="#" onclick="jQuery(this).parents(\'form\').trigger(\'submit\'); return false;" class="'. esc_attr($class) .'">'. $txt .'</a>';
+	}
+	$oot .= '</div></form>';
+	if ( $echo == true ) {
+		echo $oot;
+	} else {
+		return $oot;
+	}
+}
+
+function progo_buysc( $atts, $content = null ) {
+	extract( shortcode_atts( array(
+		'class' => 'btn',
+		'pid' => 300,
+	), $atts ) );
+	return progo_buybtn($pid, $content, $class, 'link', false);
+}
+add_shortcode( 'progo_buy', 'progo_buysc' );

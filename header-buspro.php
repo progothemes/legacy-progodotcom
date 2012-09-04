@@ -43,7 +43,7 @@
 <div id="hrap">
 	<div id="top">
         <div class="inside">
-            <span class="alignleft">Need Help? <a href="#">Visit the Forum.</a></span>
+            <span class="alignleft">Need Help? <a href="<?php bloginfo('url'); ?>/forums/forum/progo-support/">Visit the Forum.</a></span>
             <!--span class="alignright"><a href="#">Email Us</a> or <strong>Give Us a Call at (800) XXX-XXXX</strong></span-->
         </div>
     </div>
@@ -58,8 +58,8 @@
                 <li><a href="#local">Google<br />Local</a></li>
             </ul>
             <ul class="btns">
-                <li><a href="#">Demo</a></li>
-                <li><a href="#" class="buy">Buy</a></li>
+                <li><a href="http://demo.progo.com/businesspro/">Demo</a></li>
+                <li><?php progo_buybtn(300, 'BUY', 'buy'); ?></li>
             </ul>
         </div>
     </div>

@@ -374,6 +374,7 @@ img.avatar { float: left; margin: 0 10px 10px 0 }
 #secondary { float: left; width: 100%; padding: 20px 0 0; margin-left: 10px }
 body.wpsc #main, body.wpsc #secondary { padding-top: 10px }
 .block { float: left; width: 99%; border: 1px solid #ccc; margin: 0 0 9px }
+body.wpsc-shopping-cart .block { border-style: dotted; border-width: 1px 0 0; margin-top: 41px; padding-top: 20px; }
 .block h3.title { float: left; width: 100%; padding: 8px 0; margin: 0; font-size: 19px; line-height: 23px; color: #3c3c3c; background: url(images/h3b.gif) repeat-x 0 100% }
 .block h3.title .spacer { float: left; margin: 0 18px }
 .block .inside { float: left; width: 85%; padding: 11px 0 12px 18px; font-size:13px; line-height:18px }
@@ -392,6 +393,9 @@ body.wpsc #main, body.wpsc #secondary { padding-top: 10px }
 .block.share .st_sharethis .chicklets, #secondary .closecart { display: none }
 .block.twitter a.tw { float: left; padding-left: 30px; line-height:21px; background: url(images/twitter.jpg) no-repeat 0 0 }
 .block.fblike .inside { padding: 14px 0 5px 5px }
+
+.cc { display: block; width: 222px; height: 29px; text-indent: -999em; background: url(images/ccs.jpg) no-repeat 0 0 }
+.guar { display: block; width: 126px; height: 97px; padding: 25px 8px 0 108px; margin: 70px 0 0; background: url(images/guar.jpg) no-repeat 0 0; font: 13px/16px "Quattrocento Sans", Arial, Helvetica, sans-serif; color: #666 }
 
 body.blog .block { width: 100%; border: none; margin: 0 0 30px }
 body.blog .block h3.title { padding: 0; color: #333; background: none }

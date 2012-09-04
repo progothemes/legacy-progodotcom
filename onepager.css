@@ -64,6 +64,9 @@ body {
 	height: 106px;
 	z-index: 99;
 }
+body.admin-bar #hrap {
+	top: 28px;
+}
 #top {
 	background: url(images/topbar.png) repeat 50% 0;
 	color: #444;
@@ -150,23 +153,32 @@ ul.btns li {
 	float: left;
 	margin: 0 0 0 5px;
 }
-ul.btns li a {
+ul.btns li a, ul.btns input.buy {
 	background: url(images/btn-light.png) repeat-x 0 0;
 	border-radius: 5px;
+	border-width: 0;
 	color: #fff;
 	float: left;
 	font-size: 14px;
 	font-weight: 700;
 	line-height: 18px;
-	padding: 6px 0;
+	padding: 7px 0 6px;
 	width: 60px;
 	text-align: center;
 	text-decoration: none;
 	text-shadow: 1px 1px 2px rgba(0,0,0,0.65);
 	text-transform: uppercase;
 }
-ul.btns li a.buy {
+ul.btns li a.buy, ul.btns input.buy {
 	background-image: url(images/btn-dark.png);
+}
+ul.btns input.buy {
+	height: 31px;
+	padding: 0;
+	cursor: pointer;
+}
+ul.btns div.wpsc_loading_animation {
+	display: none;
 }
 .block {
 	background: url(images/blockbg.jpg) repeat-x 50% 0;
@@ -207,6 +219,7 @@ blockquote {
 	text-align: left;
 	width: 614px;
 }
+blockquote p { margin: 0; padding: 0 }
 blockquote.l4 {
 	background-image: url(images/quote184.png);
 	height: 149px;
@@ -401,6 +414,22 @@ a.btn strong {
 	left: 567px;
 	padding: 13px 19px 0 25px;
 }
+
+
+#fwrap { float: left; width: 100%; min-width: 1080px; background: #555 url(images/fbg.png) repeat-x 0 0; padding: 25px 0 }
+.fblock { float: left; width: 50% }
+.fblock .title { float: left }
+.fblock.widget_nav_menu li { margin-right: 40px }
+#ftr { display: block; margin: 0 auto; width: 960px; font: 12px/18px Arial, Helvetica, sans-serif }
+#ftr, #ftr a { color: #fff; text-decoration: none }
+#ftr a:hover { text-decoration: underline }
+#ftr ul { float: left; margin: 0; padding: 0; list-style: none }
+#ftr ul li { float: left; margin: 0; padding: 0; list-style: none }
+#ftr ul.menu li { margin-right: 12px }
+#ftr .grid_6 { margin-left: 10px }
+#ftr .grid_8 { position: relative; left: 15px }
+#ftr .right { text-align: right; margin-top: 5px }
+#ftr .right img { float: right; margin: -5px 7px 0 5px }
 
 *:focus {
 outline: none;

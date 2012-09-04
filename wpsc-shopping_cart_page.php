@@ -15,12 +15,9 @@ endif;
 <div id="checkout_page_container">
 <table class="checkout_cart">
    <tr class="header">
-      <th><?php _e('Product', 'wpsc'); ?></th>
-      <th><?php _e('Title', 'wpsc'); ?></th>
-      <th><?php _e('Quantity', 'wpsc'); ?></th>
-      <th><?php _e('Price', 'wpsc'); ?></th>
-      <th><?php _e('Total', 'wpsc'); ?></th>
-        <th>&nbsp;</th>
+      <th><?php _e('In Your Cart', 'wpsc'); ?></th>
+      <th><?php _e('Qty of Licensese', 'wpsc'); ?></th>
+      <th><?php _e('Total Price', 'wpsc'); ?></th>
    </tr>
    <?php if(function_exists('easyupsell_products')) easyupsell_products(); ?>
    <?php while (wpsc_have_cart_items()) : wpsc_the_cart_item(); ?>
@@ -34,12 +31,11 @@ endif;
       <?php  //this displays the confirm your order html ?>
 
       <tr class="product_row product_row_<?php echo wpsc_the_cart_item_key(); ?> <?php echo $alt_class;?>">
-
+<?php /*
          <td class="firstcol wpsc_product_image wpsc_product_image_<?php echo wpsc_the_cart_item_key(); ?>">
          <?php if('' != wpsc_cart_item_image()): ?>
             <img src="<?php echo wpsc_cart_item_image(70,70); ?>" alt="<?php echo wpsc_cart_item_name(); ?>" title="<?php echo wpsc_cart_item_name(); ?>" class="product_image" />
          <?php else:
-         /* I dont think this gets used anymore,, but left in for backwards compatibility */
          ?>
             <div class="item_no_image">
                <a href="<?php echo wpsc_the_product_permalink(); ?>">
@@ -49,9 +45,9 @@ endif;
             </div>
          <?php endif; ?>
          </td>
-
+*/ ?>
          <td class="wpsc_product_name wpsc_product_name_<?php echo wpsc_the_cart_item_key(); ?>">
-            <a href="<?php echo wpsc_cart_item_url();?>"><?php echo wpsc_cart_item_name(); ?></a>
+            <!--a href="<?php echo wpsc_cart_item_url();?>"--><strong><?php echo wpsc_cart_item_name(); ?></strong><!--/a-->
          </td>
 
          <td class="wpsc_product_quantity wpsc_product_quantity_<?php echo wpsc_the_cart_item_key(); ?>">
@@ -62,11 +58,13 @@ endif;
                <input type="submit" value="<?php _e('Update', 'wpsc'); ?>" name="submit" class="nobtn" />
             </form>
          </td>
-
-       
+	
+    <?php /*   
             <td><?php echo wpsc_cart_single_item_price(); ?></td>
-         <td class="wpsc_product_price wpsc_product_price_<?php echo wpsc_the_cart_item_key(); ?>"><span class="pricedisplay"><?php echo wpsc_cart_item_price(); ?></span></td>
+			*/ ?>
+         <td class="wpsc_product_price wpsc_product_price_<?php echo wpsc_the_cart_item_key(); ?>"><strong><span class="pricedisplay"><?php echo wpsc_cart_item_price(); ?></span></strong></td>
 
+    <?php /* 
          <td class="wpsc_product_remove wpsc_product_remove_<?php echo wpsc_the_cart_item_key(); ?>">
             <form action="<?php echo get_option('shopping_cart_url'); ?>" method="post" class="adjustform remove">
                <input type="hidden" name="quantity" value="0" />
@@ -75,6 +73,8 @@ endif;
                <input type="submit" value="<?php _e('X REMOVE', 'wpsc'); ?>" name="submit" class="btn" />
             </form>
          </td>
+         
+			*/ ?>
       </tr>
    <?php endwhile; ?>
    <?php //this HTML displays coupons if there are any active coupons to use ?>
@@ -193,7 +193,7 @@ endif;
    <?php endif;  ?>
    
 
-   <table  class='wpsc_checkout_table table-4'>
+   <table  class='wpsc_checkout_table table-4' style="display: none">
       <?php if(wpsc_uses_shipping()) : ?>
 	      <tr class="total_shipping">
 	         <td>
@@ -263,7 +263,6 @@ endif;
 				</fieldset>
 			</div>
 	<?php endif; ?>
-    <div class="req"><?php _e('Fields marked with an asterisk* must be filled in.', 'wpsc');?></div>
 	<form class='wpsc_checkout_forms' action='<?php echo get_option('shopping_cart_url'); ?>' method='post' enctype="multipart/form-data">
 				
       <?php
@@ -322,7 +321,9 @@ endif;
 
                <tr <?php echo wpsc_the_checkout_item_error_class();?>>
                   <td <?php wpsc_the_checkout_details_class(); ?> colspan='2'>
-                     <h4><?php echo wpsc_checkout_form_name();?></h4>
+                     <h4><span><?php echo wpsc_checkout_form_name(); ?></span><?php if ( $i == 1 ) { ?>
+                     <span class="req"><?php _e('Fields marked with an asterisk* must be filled in.', 'wpsc');?></span>
+                     <?php } ?></h4>
                   </td>
                </tr>
                <?php if(wpsc_is_shipping_details()):?>
@@ -423,7 +424,7 @@ endif;
       <table class="wpsc_checkout_table table-3">
          <tr>
          <td colspan='2' class='wpsc_gateway_container'>
-            <h4><?php _e('Payment Info', 'wpsc');?></h4>
+            <h4><span><?php _e('Payment Info', 'wpsc');?></span></h4>
       <?php if(wpsc_gateway_count() > 1): // if we have more than one gateway enabled, offer the user a choice ?>
             <?php while (wpsc_have_gateways()) : wpsc_the_gateway(); ?>
                <div class="custom_gateway">
@@ -470,7 +471,6 @@ endif;
             <?php endif; ?>
                <input type='hidden' value='submit_checkout' name='wpsc_action' />
                <input type='submit' value='<?php _e('Purchase', 'wpsc');?>' name='submit' class='make_purchase wpsc_buy_button' />
-               <span class="req"><?php _e('Fields marked with an asterisk* must be filled in.', 'wpsc');?></span>
                <div class="cred"><?php
 $options = get_option('progo_options');
 echo $options['credentials'];
