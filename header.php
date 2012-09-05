@@ -43,7 +43,7 @@
 <div id="hrap">
 	<div id="top">
         <div class="inside">
-            <span class="alignleft">Need Help? <a href="#">Visit the Forum.</a></span>
+            <span class="alignleft">Need Help? <a href="/forums/forum/progo-support/">Visit the Forum.</a></span>
             <!--span class="alignright"><a href="#">Email Us</a> or <strong>Give Us a Call at (800) XXX-XXXX</strong></span-->
         </div>
     </div>
