@@ -16,7 +16,7 @@ endif;
 <table class="checkout_cart">
    <tr class="header">
       <th><?php _e('In Your Cart', 'wpsc'); ?></th>
-      <th><?php _e('Qty of Licensese', 'wpsc'); ?></th>
+      <th><?php _e('Qty of Licenses', 'wpsc'); ?></th>
       <th><?php _e('Total Price', 'wpsc'); ?></th>
    </tr>
    <?php if(function_exists('easyupsell_products')) easyupsell_products(); ?>
